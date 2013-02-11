@@ -1,0 +1,26 @@
+Cerando um formulario usando o core do sistema para envio de email
+
+$f = new W2P_Form_Form('teste');
+$e = new W2P_Form_Element_Select('teste sdf',
+		array('value'=>'F',
+				'required'=>true,
+				'autofocus'=>true,
+				'label'=>'Entre com sua senha:'
+		));
+$e->setMultioptions(array(
+		'Masculino' => 'M',
+		'Feminino'	=> 'F'
+));
+
+$f->addElement($e)
+	->addElement(new W2P_Form_Element_Email('fullname',array('label'=>'Fullname:','placeholder'=>'Fullname','required'=>'required','validator'=>new W2P_Validate_Alpha(true),'filter'=>new W2P_Filter_StringToLower())))
+	->addElement(new W2P_Form_Element_File('arquivo'))
+	->addElement(new W2P_Form_Element_Submit('enviar',array('ignore'=>true)));
+$f->populate($_POST);
+$f->addTo('webmaster.lelo@gmail.com')
+	->setConfirmMessage('Mensagem enviada com sucesso!')
+	->setEnctype( W2P_Form_Form::ENCTYPE_MULTIPART )
+	->addBco('welington.sampaio@zaez.net');
+$f->sendMail();
+echo $f->getMessage();
+echo $f;

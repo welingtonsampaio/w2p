@@ -1,0 +1,271 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: W2P 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-07-11 09:06-0300\n"
+"PO-Revision-Date: 2012-07-11 09:06-0300\n"
+"Last-Translator: Welington Sampaio <welington.sampaio@zaez.net>\n"
+"Language-Team: Welington Sampaio, Alan Nicolas Souza <welington.sampaio@zaez.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e;_n;_x\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-Country: UNITED STATES\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../core/modules/maintenance/index.php:6
+#: ../core/modules/maintenance/index.php:23
+msgid "System in maintenance"
+msgstr ""
+
+#: ../core/modules/maintenance/index.php:26
+msgid "Administration"
+msgstr ""
+
+#: ../core/modules/maintenance/index.php:29
+#: ../core/modules/maintenance/index.php:30
+msgid "Site of the development"
+msgstr ""
+
+#: ../core/W2P/Admin.php:88
+msgid "Incorrect value for the parameter."
+msgstr ""
+
+#: ../core/W2P/Admin.php:104
+msgid "Mode maintenance ( active / deactive )"
+msgstr ""
+
+#: ../core/W2P/Admin.php:111
+msgid "Enter the Google Key Analytics for integration in system"
+msgstr ""
+
+#: ../core/W2P/Admin.php:200
+msgid "Name of invalid module."
+msgstr ""
+
+#: ../core/W2P/Admin.php:249
+msgid "Updated options successfully!"
+msgstr ""
+
+#: ../core/W2P/Admin.php:251
+msgid "It brings up to date a content to bring up to date successfully."
+msgstr ""
+
+#: ../core/W2P/Configuration.php:122
+#, php-format
+msgid "The property %s was not configured in the system."
+msgstr ""
+
+#: ../core/W2P/Configuration.php:139
+#, php-format
+msgid "%s is a privately owned system, try again with another name."
+msgstr ""
+
+#: ../core/W2P/Helper.php:68
+msgid "Unidentified"
+msgstr ""
+
+#: ../core/W2P/Html.php:55
+#, php-format
+msgid "Image not existent: %s"
+msgstr ""
+
+#: ../core/W2P/Admin/Module.php:114
+#: ../core/W2P/Admin/Module/Item.php:175
+#, php-format
+msgid "Parameter \"%s\" of invalid item."
+msgstr ""
+
+#: ../core/W2P/Admin/Html/_form.php:56
+msgid "Browser image"
+msgstr ""
+
+#: ../core/W2P/Email/Email.php:119
+msgid "Good afternoon"
+msgstr ""
+
+#: ../core/W2P/Email/Email.php:121
+msgid "Good morning"
+msgstr ""
+
+#: ../core/W2P/Email/Email.php:123
+msgid "Good night"
+msgstr ""
+
+#: ../core/W2P/Email/Email.php:131
+msgid "Y-m-d \\a\\t H:i:s"
+msgstr ""
+
+#: ../core/W2P/Email/Email.php:182
+msgid "Fields filled invalid."
+msgstr ""
+
+#: ../core/W2P/Email/Email.php:301
+msgid "Contact from site"
+msgstr ""
+
+#: ../core/W2P/Email/Email.php:333
+#, php-format
+msgid "This message was sent from IP: %s in %s"
+msgstr ""
+
+#: ../core/W2P/Email/Email.php:354
+msgid "You have received a new message from"
+msgstr ""
+
+#: ../core/W2P/Email/Form.php:665
+#, php-format
+msgid "The field \"%s\" is required."
+msgstr ""
+
+#: ../core/W2P/Email/Form.php:671
+#: ../core/W2P/Email/Form.php:679
+#, php-format
+msgid "Minimum size allowed for the field \"%s\" is %s characters."
+msgstr ""
+
+#: ../core/W2P/Email/Form.php:687
+#, php-format
+msgid "Maximum size allowed for the field \"%s\" is %s characters."
+msgstr ""
+
+#: ../core/W2P/Filter/StringToLower.php:89
+#: ../core/W2P/Filter/StringToUpper.php:89
+msgid "mbstring is required for this feature"
+msgstr ""
+
+#: ../core/W2P/Filter/StringToLower.php:94
+#: ../core/W2P/Filter/StringToUpper.php:94
+#, php-format
+msgid "The given encoding '%s' is not supported by mbstring"
+msgstr ""
+
+#: ../core/W2P/Form/Element.php:344
+#: ../core/W2P/Form/Element.php:400
+#, php-format
+msgid "Invalid %s provided; must contain only valid variable characters and be non-empty"
+msgstr ""
+
+#: ../core/W2P/Form/Element.php:477
+msgid "Validator for inserting invalid"
+msgstr ""
+
+#: ../core/W2P/Form/Form.php:184
+#: ../core/W2P/Form/Form.php:201
+msgid "The element sent is invalid, must be sent one element W2P_Form_Element"
+msgstr ""
+
+#: ../core/W2P/Form/Form.php:197
+msgid "The element sent is invalid, must be sent one element Array"
+msgstr ""
+
+#: ../core/W2P/Post/Custom.php:81
+#, php-format
+msgid "Add %s"
+msgstr ""
+
+#: ../core/W2P/Post/Custom.php:82
+#, php-format
+msgid "Add anew %s"
+msgstr ""
+
+#: ../core/W2P/Post/Custom.php:83
+#, php-format
+msgid "Edit %s"
+msgstr ""
+
+#: ../core/W2P/Post/Custom.php:84
+#, php-format
+msgid "New %s"
+msgstr ""
+
+#: ../core/W2P/Post/Custom.php:86
+#, php-format
+msgid "Search %s"
+msgstr ""
+
+#: ../core/W2P/Post/Custom.php:87
+#, php-format
+msgid "No found %s"
+msgstr ""
+
+#: ../core/W2P/Post/Custom.php:88
+#, php-format
+msgid "No %s found in the trash"
+msgstr ""
+
+#: ../core/W2P/Post/Custom.php:121
+#: ../core/W2P/Post/Custom.php:143
+#, php-format
+msgid "Invalid name \"%s\" for %s."
+msgstr ""
+
+#: ../core/W2P/Post/Metas.php:104
+#, php-format
+msgid "Invalid type \"%s\" for %s."
+msgstr ""
+
+#: ../core/W2P/Validate/Alnum.php:128
+#: ../core/W2P/Validate/Alpha.php:128
+#: ../core/W2P/Validate/EmailAddress.php:97
+#: ../core/W2P/Validate/Regex.php:115
+#: ../core/W2P/Validate/StringLength.php:135
+#, php-format
+msgid "There is registered message to: %s"
+msgstr ""
+
+#: ../core/W2P/Validate/Alnum.php:132
+#: ../core/W2P/Validate/Regex.php:119
+msgid "Invalid type given. String, integer or float expected"
+msgstr ""
+
+#: ../core/W2P/Validate/Alnum.php:134
+#, php-format
+msgid "'%s' contains characters which are non alphabetic and no digits"
+msgstr ""
+
+#: ../core/W2P/Validate/Alnum.php:136
+#: ../core/W2P/Validate/Alpha.php:136
+#, php-format
+msgid "'%s' is an empty string"
+msgstr ""
+
+#: ../core/W2P/Validate/Alpha.php:132
+#: ../core/W2P/Validate/EmailAddress.php:101
+#: ../core/W2P/Validate/StringLength.php:139
+msgid "Invalid type given. String expected"
+msgstr ""
+
+#: ../core/W2P/Validate/Alpha.php:134
+#, php-format
+msgid "'%s' contains non alphabetic characters"
+msgstr ""
+
+#: ../core/W2P/Validate/EmailAddress.php:103
+#, php-format
+msgid "'%s' is no valid email address in the basic format username@hostname"
+msgstr ""
+
+#: ../core/W2P/Validate/Regex.php:121
+#, php-format
+msgid "'%s' does not match against pattern %s"
+msgstr ""
+
+#: ../core/W2P/Validate/Regex.php:123
+#, php-format
+msgid "There was an internal error while using the pattern '%s'"
+msgstr ""
+
+#: ../core/W2P/Validate/StringLength.php:141
+#, php-format
+msgid "'%s' is less than %s characters long"
+msgstr ""
+
+#: ../core/W2P/Validate/StringLength.php:143
+#, php-format
+msgid "'%s' is more than %s characters long"
+msgstr ""
+

@@ -1,0 +1,34 @@
+<?php
+$this instanceof W2P
+?>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title></title>
+	<link rel="alternate" type="application/rss+xml" title="<?php bloginfo('name'); ?> RSS Feed" href="<?php bloginfo('rss2_url'); ?>" />
+	<link rel="alternate" type="application/atom+xml" title="<?php bloginfo('name'); ?> Atom Feed" href="<?php bloginfo('atom_url'); ?>" />
+	<link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
+	<?php 
+		$this->stylesheet()->renderSass();
+// 		$this->javascript()->append_file('vendor/modernizr-1.7.min',null,false)
+// 							->append_file('vendor/jquery.easing-1.3.pack',null,false)
+// 							->append_file('vendor/jquery.mousewheel.min',null,false)
+// 							->append_file('vendor/jquery.fancybox-1.3.4.pack', null, false)
+// 							->append_file('0_script')
+// // 							->append_file('1_forms')
+// 							->append_file('2_exclude')
+// 							->append_file('r_0_forms', 'if lte IE 8')
+// 							->render_js();
+	?>
+</head>
+<body>
+	<header id="header">
+	</header>
+	<section id="content">
+		<?php echo $this->content ?>
+	</section>
+	<footer id="footer">
+	</footer>
+</body>
+</html>

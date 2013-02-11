@@ -1,0 +1,34 @@
+Cerando um formulario usando o core do sistema para envio de email
+
+$e = new W2P_Form_Element_Email('fullname',array(
+	'label'=>'Fullname:',
+	'placeholder'=>'Fullname',
+	'required'=>'required'
+	));
+
+// Set Filters
+$e
+	->setFilter( new W2P_Filter_Alnum() )
+	->setFilter( new W2P_Filter_StringToLower() )
+	->setFilter( new W2P_Filter_StringToUpper() )
+	->setFilter( new W2P_Filter_StripNewlines() )
+	->setFilter( new W2P_Filter_StringTrim() )
+	->setFilter( new W2P_Filter_Alpha() )
+	->setFilter( new W2P_Filter_Digits() )
+	->setFilter( new W2P_Filter_HtmlEntities() )
+	->setValue( 'Test *34* nice' );
+print_r( $e->getValue() );
+print_r( $e->getNonFilterValue() );
+
+// Set Validators
+$e
+	->setValidator( new W2P_Validate_Alnum() )
+	->setValidator( new W2P_Validate_Alpha() )
+	->setValidator( new W2P_Validate_EmailAddress() )
+	->setValidator( new W2P_Validate_Regex('/admin/i') )
+	->setValidator( new W2P_Validate_StringLength(10, 20) )
+	->setValue( 0x123123 . '@#' )
+	->setValue( array('admin@admin.com', "kjytrtyubLelOhvgctyui9876ghj") )
+	;
+var_dump( $e->isValid() );
+print_r( $e->getErrors() );
