@@ -20,6 +20,8 @@
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
 
+namespace W2P\Filter;
+
 /**
  * 
  * @author		Welington Sampaio ( @link http://welington.zaez.net )
@@ -31,7 +33,7 @@
  * @copyright	Copyright (c) 2012 Zaez Solução em Tecnologia Ltda - Welington Sampaio
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
-class W2P_Filter_Alnum extends W2P_Filter_Abstract
+class Alnum extends AbstractClass
 {
 	/**
 	 * Whether to allow white space characters; off by default
@@ -49,8 +51,7 @@ class W2P_Filter_Alnum extends W2P_Filter_Abstract
 	/**
      * Sets default option values for this instance
      *
-     * @param  boolean $allowWhiteSpace
-     * @return void
+     * @param $allowWhiteSpace boolean
 	 */
 	public function __construct( $allowWhiteSpace = false )
 	{
@@ -62,7 +63,7 @@ class W2P_Filter_Alnum extends W2P_Filter_Abstract
 		}
 	}
 	/**
-     * Defined by W2P_Filter_Interface
+     * Defined by InterfaceClass
      *
      * Returns the string $value, removing all but alphabetic and digit characters
      *
@@ -93,7 +94,7 @@ class W2P_Filter_Alnum extends W2P_Filter_Abstract
 	 * Sets the allowWhiteSpace option
 	 *
 	 * @param boolean $allowWhiteSpace
-	 * @return W2P_Filter_Alnum Provides a fluent interface
+	 * @return Alnum Provides a fluent interface
 	 */
 	public function setAllowWhiteSpace($allowWhiteSpace)
 	{

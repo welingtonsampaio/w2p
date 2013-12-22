@@ -21,6 +21,9 @@
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
 
+namespace W2P\Validate;
+use W2P\Exception;
+
 /**
  * @author		Welington Sampaio ( @link http://welington.zaez.net )
  * @version		1.0
@@ -31,7 +34,7 @@
  * @copyright	Copyright (c) 2012 Zaez Solução em Tecnologia Ltda - Welington Sampaio
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
-class W2P_Validate_StringLength extends W2P_Validate_Abstract
+class StringLength extends AbstractClass
 {
 	const INVALID	= 'stringLengthInvalid';
 	const TOO_SHORT	= 'stringLengthTooShort';
@@ -61,9 +64,8 @@ class W2P_Validate_StringLength extends W2P_Validate_Abstract
 	/**
 	 * The constructor
 	 * 
-	 * @param int $min
-	 * @param int $max
-	 * @return void
+	 * @param $min int
+	 * @param $max int
 	 */
 	public function __construct( $min, $max )
 	{
@@ -72,7 +74,7 @@ class W2P_Validate_StringLength extends W2P_Validate_Abstract
 	}
 	
 	/**
-	 * Defined by W2P_Filter_Interface
+	 * Defined by InterfaceClass
 	 *
 	 * @return boolean
 	 */
@@ -125,14 +127,19 @@ class W2P_Validate_StringLength extends W2P_Validate_Abstract
 	}
 	
 	/**
-	 * Defined by Zend_Filter_Interface
+	 * Defined by InterfaceClass
+     *
+     * @param $messageVariable
+     * @param $value
+     *
+     * @throws Exception
 	 *
-	 * @return boolean
+	 * @return String
 	 */
 	public function getMessage( $messageVariable, $value )
 	{
 		if ( !in_array($messageVariable, $this->_messageVariables) )
-			throw new W2P_Validate_Exception( sprintf( __("There is registered message to: %s", 'W2P'), $messageVariable) );
+			throw new Exception( sprintf( __("There is registered message to: %s", 'W2P'), $messageVariable) );
 		switch ( $messageVariable )
 		{
 			case self::INVALID		:

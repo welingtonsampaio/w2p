@@ -20,6 +20,8 @@
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
 
+namespace W2P\Post;
+
 /**
  * Classe responsavel por geracao custom post.
  * Custom post sao modelos de posts com nomes,
@@ -37,7 +39,7 @@
  * @copyright	Copyright (c) 2012 Zaez Solução em Tecnologia Ltda - Welington Sampaio
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
-class W2P_Post_Custom
+class Custom
 {
 	/**
 	 * Nome do novo tipo de post
@@ -106,8 +108,8 @@ class W2P_Post_Custom
 	 * 				Options: name, singular_name, add_new, add_new_item, edit_item, new_item, 
 						view_item, search_items, not_found, not_found_in_trash, parent_item_colon
 	 * @param string $value
-	 * @return W2P_Post_Custom
-	 * @throws W2P_Exception
+	 * @return Custom
+	 * @throws Exception
 	 */
 	public function setLabel( $name , $value )
 	{
@@ -118,7 +120,7 @@ class W2P_Post_Custom
 			$this->labels[$name] = $value;
 			return $this;
 		}
-		throw new W2P_Exception( sprintf( __('Invalid name "%s" for %s.', 'W2P'), $name, 'the label' ) );
+		throw new Exception( sprintf( __('Invalid name "%s" for %s.', 'W2P'), $name, 'the label' ) );
 	}
 	/**
 	 * Setting the argument for create a new custom post
@@ -128,8 +130,8 @@ class W2P_Post_Custom
 	 * 				Options: public, publicly_queryable, show_ui, query_var, rewrite, 
 						capability_type, hierarchical, menu_position, supports
 	 * @param mixed $value
-	 * @return W2P_Post_Custom
-	 * @throws W2P_Exception
+	 * @return Custom
+	 * @throws Exception
 	 */
 	public function setArgument( $name , $value )
 	{
@@ -140,7 +142,7 @@ class W2P_Post_Custom
 			$this->args[$name] = $value;
 			return $this;
 		}
-		throw new W2P_Exception( sprintf( __('Invalid name "%s" for %s.', 'W2P'), $name, 'argument' ) );
+		throw new Exception( sprintf( __('Invalid name "%s" for %s.', 'W2P'), $name, 'argument' ) );
 	}
 	/**
 	 * Genarate custom post

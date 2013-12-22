@@ -21,6 +21,9 @@
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
 
+namespace W2P\Admin;
+use W2P\Form\Element;
+
 /**
  * Classe responsavel por criar modulos na pagina
  * de administracao, esses modulos sao itens do menu
@@ -49,7 +52,7 @@
  * @copyright	Copyright (c) 2012 Zaez Solução em Tecnologia Ltda - Welington Sampaio
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
-class W2P_Admin_Module
+class Module
 {
 	/**
 	 * Identificacao do icone
@@ -122,34 +125,34 @@ class W2P_Admin_Module
 	 * quem contem as informacoes necessarias
 	 * para criacao do campo correspondente
 	 * 
-	 * @param W2P_Form_Element $element
+	 * @param \W2P\Form\Element $element
 	 * 		Deve ser enviado um objeto do tipo W2P_Form_Element
-	 * @throws W2P_Exception
+	 * @throws Exception
 	 * 		Caso o valor enviado por paramentro nao seja
 	 * 		valido, e estourado uma exception
-	 * @return W2P_Admin_Module_Item
+	 * @return Module\Item
 	 */
 	public function addItem( $element )
 	{
-		if ( $element instanceof W2P_Form_Element ) {
+		if ( $element instanceof Element ) {
 			$this->itens[$element->getName()] = $element;
 			return $this;
 		}
-		throw new W2P_Exception( __("Incorrect value for the parameter.", 'W2P') );
+		throw new Exception( __("Incorrect value for the parameter.", 'W2P') );
 	}
 	/**
 	 * Recupera o item atraves do nome enviado
 	 * @param string $name
-	 * @throws W2P_Exception
+	 * @throws Exception
 	 * 		Caso nao exista um objeto com o nome enviado
 	 * 		e estourado uma exception
-	 * @return W2P_Admin_Module_Item
+	 * @return Item
 	 */
 	public function getItem( $name )
 	{
 		if ( key_exists($name, $this->itens) )
 			return $this->itens[$name];
-		throw new W2P_Exception( sprintf( __('Parameter "%s" of invalid item.', 'W2P'), $name ) );
+		throw new Exception( sprintf( __('Parameter "%s" of invalid item.', 'W2P'), $name ) );
 	}
 	/**
 	 * Retorna a string com a identificacao
@@ -183,7 +186,7 @@ class W2P_Admin_Module
 	 * completa no site do plugin bootstrap
 	 * @see http://twitter.github.com/bootstrap/base-css.html#icons
 	 * @param string $icon
-	 * @return W2P_Admin_Module
+	 * @return Module
 	 */
 	public function setIcon( $icon )
 	{
@@ -193,7 +196,9 @@ class W2P_Admin_Module
 	/**
 	 * Configuracao do nome de modulo
 	 * 
-	 * @param string $name
+	 * @param $name string
+     *
+     * @return Module
 	 */
 	public function setName( $name )
 	{

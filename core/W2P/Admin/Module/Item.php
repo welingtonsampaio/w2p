@@ -21,6 +21,8 @@
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
 
+namespace W2P\Admin\Module;
+
 /**
  * Classe responsavel por criar itens para os modulos
  * os itens sao renderizados como campos na pagina de
@@ -38,7 +40,7 @@
  * @author Welington Sampaio { @link http://welington.zaez.net/ }
  * @since 0.1
  */
-class W2P_Admin_Module_Item
+class Item
 {
 	/**
 	 * Valor default para o item
@@ -119,7 +121,7 @@ class W2P_Admin_Module_Item
 	/**
 	 * Configura o novo valor para defaultValue
 	 * @param string $defaultValue
-	 * @return W2P_Admin_Module_Item
+	 * @return Item
 	 */
 	public function setDefaultValue( $defaultValue )
 	{
@@ -129,7 +131,7 @@ class W2P_Admin_Module_Item
 	/**
 	 * Configura o novo valor para o label
 	 * @param string $label
-	 * @return W2P_Admin_Module_Item
+	 * @return Item
 	 */
 	public function setLabel( $label )
 	{
@@ -139,7 +141,7 @@ class W2P_Admin_Module_Item
 	/**
 	 * Configura o novo valor para o nome
 	 * @param string $name
-	 * @return W2P_Admin_Module_Item
+	 * @return Item
 	 */
 	public function setName( $name )
 	{
@@ -149,7 +151,7 @@ class W2P_Admin_Module_Item
 	/**
 	 * Configura o novo valor para os paramentros
 	 * @param string $params
-	 * @return W2P_Admin_Module_Item
+	 * @return Item
 	 */
 	public function setParams( $params )
 	{
@@ -162,7 +164,7 @@ class W2P_Admin_Module_Item
 	 * 		Options: text, textarea, radio, image
 	 * @throws Exception
 	 * 		Caso o tipo enviado seja invalido
-	 * @return W2P_Admin_Module_Item
+	 * @return Item
 	 */
 	public function setType( $type )
 	{

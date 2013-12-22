@@ -20,6 +20,8 @@
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
 
+namespace W2P\Validate;
+
 /**
  * @author		Welington Sampaio ( @link http://welington.zaez.net )
  * @version		1.0
@@ -30,7 +32,7 @@
  * @copyright	Copyright (c) 2012 Zaez Solução em Tecnologia Ltda - Welington Sampaio
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
-class W2P_Validate_Alpha extends W2P_Validate_Abstract
+class Alpha extends AbstractClass
 {
 	const INVALID		= 'alnumInvalid';
     const NOT_ALPHA		= 'notAlpha';
@@ -43,7 +45,7 @@ class W2P_Validate_Alpha extends W2P_Validate_Abstract
 	protected  $allowWhiteSpace;
 	/**
 	 * Filtro de alfanumericos
-	 * @var W2P_Filter_Alnum
+	 * @var \W2P\Filter\Alpha
 	 */
 	protected static $_filter;
 	/**
@@ -60,8 +62,7 @@ class W2P_Validate_Alpha extends W2P_Validate_Abstract
 	/**
 	 * The constructor
 	 * 
-	 * @param boolean $allowWhiteSpace
-	 * @return void
+	 * @param $allowWhiteSpace boolean
 	 */
 	public function __construct( $allowWhiteSpace = false )
 	{
@@ -69,8 +70,9 @@ class W2P_Validate_Alpha extends W2P_Validate_Abstract
 	}
 	
 	/**
-	 * Defined by W2P_Filter_Interface
+	 * Defined by InterfaceClass
 	 *
+     * @param $value
 	 * @return boolean
 	 */
 	public function isValid($value=null)
@@ -94,9 +96,9 @@ class W2P_Validate_Alpha extends W2P_Validate_Abstract
 		if ( null === self::$_filter )
 		{
 			/**
-			 * @see W2P_Filter_Alpha
+			 * @see \W2P\Filter\Alpha
 			 */
-			self::$_filter = new W2P_Filter_Alpha();
+			self::$_filter = new \W2P\Filter\Alpha();
 		}
 		
 		self::$_filter->setAllowWhiteSpace( $this->allowWhiteSpace );
@@ -118,14 +120,19 @@ class W2P_Validate_Alpha extends W2P_Validate_Abstract
 	}
 	
 	/**
-	 * Defined by Zend_Filter_Interface
+	 * Defined by InterfaceClass
 	 *
-	 * @return boolean
+     * @param $messageVariable
+     * @param $value
+     *
+     * @throws Exception
+     *
+	 * @return String
 	 */
 	public function getMessage( $messageVariable, $value )
 	{
 		if ( !in_array($messageVariable, $this->_messageVariables) )
-			throw new W2P_Validate_Exception( sprintf( __("There is registered message to: %s", 'W2P'), $messageVariable) );
+			throw new Exception( sprintf( __("There is registered message to: %s", 'W2P'), $messageVariable) );
 		switch ( $messageVariable )
 		{
 			case self::INVALID		:

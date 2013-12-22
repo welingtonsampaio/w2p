@@ -20,6 +20,8 @@
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
 
+namespace W2P\Validate;
+
 /**
  * @author		Welington Sampaio ( @link http://welington.zaez.net )
  * @version		1.0
@@ -30,7 +32,7 @@
  * @copyright	Copyright (c) 2012 Zaez Solução em Tecnologia Ltda - Welington Sampaio
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
-class W2P_Validate_Regex extends W2P_Validate_Abstract
+class Regex extends AbstractClass
 {
 	const INVALID	= 'regexInvalid';
     const NOT_MATCH	= 'regexNotMatch';
@@ -55,9 +57,9 @@ class W2P_Validate_Regex extends W2P_Validate_Abstract
 	
 	/**
 	 * The constructor
-	 * 
-	 * @param boolean $allowWhiteSpace
-	 * @return void
+	 *
+	 * @param $pattern String
+     *  is a regular expression
 	 */
 	public function __construct( $pattern )
 	{
@@ -65,7 +67,9 @@ class W2P_Validate_Regex extends W2P_Validate_Abstract
 	}
 	
 	/**
-	 * Defined by W2P_Filter_Interface
+	 * Defined by InterfaceClass
+     *
+     * @param $value String
 	 *
 	 * @return boolean
 	 */
@@ -105,14 +109,19 @@ class W2P_Validate_Regex extends W2P_Validate_Abstract
 	}
 	
 	/**
-	 * Defined by Zend_Filter_Interface
+	 * Defined by InterfaceClass
+     *
+     * @param $messageVariable
+     * @param $value
+     *
+     * @throws Exception
 	 *
 	 * @return string
 	 */
 	public function getMessage( $messageVariable, $value )
 	{
 		if ( !in_array($messageVariable, $this->_messageVariables) )
-			throw new W2P_Validate_Exception( sprintf( __("There is registered message to: %s", 'W2P'), $messageVariable) );
+			throw new Exception( sprintf( __("There is registered message to: %s", 'W2P'), $messageVariable) );
 		switch ( $messageVariable )
 		{
 			case self::INVALID		:
@@ -138,8 +147,8 @@ class W2P_Validate_Regex extends W2P_Validate_Abstract
 	 * Sets the pattern option
 	 *
 	 * @param  string $pattern
-	 * @throws W2P_Validate_Exception if there is a fatal error in pattern matching
-	 * @return W2P_Validate_Regex Provides a fluent interface
+	 * @throws Exception if there is a fatal error in pattern matching
+	 * @return Regex Provides a fluent interface
 	 */
 	public function setPattern($pattern)
 	{
@@ -147,7 +156,7 @@ class W2P_Validate_Regex extends W2P_Validate_Abstract
 		$status         = @preg_match($this->_pattern, "Test");
 	
 		if (false === $status) 
-			throw new W2P_Validate_Exception( $this->getMessage(self::ERROROUS, null) );
+			throw new Exception( $this->getMessage(self::ERROROUS, null) );
 	
 		return $this;
 	}

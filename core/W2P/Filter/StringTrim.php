@@ -20,6 +20,8 @@
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
 
+namespace W2P\Filter;
+
 /**
  * 
  * @author		Welington Sampaio ( @link http://welington.zaez.net )
@@ -31,7 +33,7 @@
  * @copyright	Copyright (c) 2012 Zaez Solução em Tecnologia Ltda - Welington Sampaio
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
-class W2P_Filter_StringTrim extends W2P_Filter_Abstract
+class StringTrim extends AbstractClass
 {
 	/**
 	 * List of characters provided to the trim() function
@@ -47,7 +49,6 @@ class W2P_Filter_StringTrim extends W2P_Filter_Abstract
 	 * Sets filter options
 	 *
 	 * @param  string|array $options
-	 * @return void
 	 */
 	public function __construct($options = null)
 	{
@@ -76,7 +77,7 @@ class W2P_Filter_StringTrim extends W2P_Filter_Abstract
 	 * Sets the charList option
 	 *
 	 * @param  string|null $charList
-	 * @return W2P_Filter_StringTrim Provides a fluent interface
+	 * @return StringTrim Provides a fluent interface
 	 */
 	public function setCharList($charList)
 	{
@@ -85,7 +86,7 @@ class W2P_Filter_StringTrim extends W2P_Filter_Abstract
 	}
 	
 	/**
-	 * Defined by W2P_Filter_Interface
+	 * Defined by InterfaceClass
 	 *
 	 * Returns the string $value with characters stripped from the beginning and end
 	 *

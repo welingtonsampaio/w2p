@@ -20,6 +20,8 @@
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
 
+namespace W2P;
+
 /**
  * Classe responsavel por manutencao e gerenciamento
  * dosmodulos do w2p
@@ -33,7 +35,7 @@
  * @copyright	Copyright (c) 2012 Zaez Solução em Tecnologia Ltda - Welington Sampaio
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
-class W2P_Modules
+class Modules
 {
 	public function __construct()
 	{

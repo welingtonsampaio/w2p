@@ -20,12 +20,14 @@
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
 
+namespace W2P;
+
 /**
  * Classe responsavel por gerar area administrativa
  * 
  * @example $admin = $system->admin();<br>
- * $module1 = new W2P_Admin_Module( W2P_APPNAME );<br>
- * $module2 = new W2P_Admin_Module( 'Redes Sociais' );<br>
+ * $module1 = new Admin\Module( W2P_APPNAME );<br>
+ * $module2 = new Admin\Module( 'Redes Sociais' );<br>
  * $module2->addItem('linkFacebook')->setLabel('Link for page of facebook');<br>
  * $module2->addItem('linkTwitter')->setLabel('Link for page of Twitter');<br>
  * $admin->addModule($module1);<br>
@@ -41,7 +43,7 @@
  * @copyright	Copyright (c) 2012 Zaez Solução em Tecnologia Ltda - Welington Sampaio
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
-class W2P_Admin
+class Admin
 {
 	/**
 	 * Contem se eh para gerar campo de
@@ -56,7 +58,7 @@ class W2P_Admin
 	 */
 	protected $_noUsedKeyAnlytics = false;
 	/**
-	 * Matriz de objetos W2P_Admin_Module
+	 * Matriz de objetos Admin\Module
 	 * @var array
 	 */
 	protected $_modules = array();
@@ -73,15 +75,15 @@ class W2P_Admin
 	 * campos personalizados que podera ser resgatado
 	 * posteriormente pelo objeto W2P_Configuration
 	 *
-	 * @param W2P_Admin_Module|string $param
-	 * @return W2P_Admin_Module
+	 * @param Admin\Module|string $param
+	 * @return Admin\Module
 	 */
 	public function addModule( $param )
 	{
 		if ( is_string($param) ) {
-			$this->_modules[$param] = new W2P_Admin_Module($param);
+			$this->_modules[$param] = new Admin\Module($param);
 			return $this->_modules[$param];
-		} elseif ( $param instanceof W2P_Admin_Module ) {
+		} elseif ( $param instanceof Admin\Module ) {
 			$this->_modules[ $param->getName() ] = $param;
 			return $param;
 		}
@@ -99,7 +101,7 @@ class W2P_Admin
 		{
 			if ( W2P::getInstance()->modules()->exists_module('maintenance') === true )
 			{
-				$modeMaintenance = new W2P_Form_Element_RadioWp('modeMaintenance');
+				$modeMaintenance = new Form\Element\RadioWp('modeMaintenance');
 				$modeMaintenance->setLabel(__('Mode maintenance ( active / deactive )', 'W2P'));
 				$defaultModule->addItem($modeMaintenance);
 			}
@@ -107,7 +109,7 @@ class W2P_Admin
 		
 		if ( $this->_noUsedKeyAnlytics !== true )
 		{
-			$keyAnalytics = new W2P_Form_Element_Text('keyAnalytics');
+			$keyAnalytics = new Form\Element\Text('keyAnalytics');
 			$keyAnalytics->setLabel( __('Enter the Google Key Analytics for integration in system', 'W2P') );
 			$defaultModule->addItem($keyAnalytics);
 		}
@@ -118,10 +120,10 @@ class W2P_Admin
 			$ar = array();
 			foreach ( $this->_modules as $module )
 			{
-				$module instanceof W2P_Admin_Module;
+				/** @var $module Admin\Module */
 				foreach ( $module->getItens() as $item )
 				{
-					$item instanceof W2P_Form_Element;
+                    /** @var $item Form\Element */
 					$dv = $item->getValue();
 					$ar[ $item->getName() ] = $dv;					
 					$ar[ $item->getName() ] = ( $item->getType() == 'radioWp'		? 0 : $ar[ $item->getName() ] );
@@ -184,8 +186,13 @@ class W2P_Admin
 	 * cria o modulo e o retorna
 	 * 
 	 * @see W2P_Admin::addModule()
-	 * @param string $name
-	 * @return W2P_Admin_Module
+     *
+     * @param string $name
+     * @param boolean $forceCreate
+     *
+     * @throws Exception
+     *
+	 * @return Admin\Module
 	 */
 	public function getModule( $name, $forceCreate = false )
 	{
@@ -228,12 +235,12 @@ class W2P_Admin
 		
 		foreach ( $this->_modules as $module )
 		{
-			$module instanceof W2P_Admin_Module;
+			$module instanceof Admin\Module;
 			if ( $_POST['w2p_theme_gravar'] == md5( $module->getName() ) )
 			{
 				foreach ( $module->getItens() as $item )
 				{
-					$item instanceof W2P_Form_Element;
+					$item instanceof Form\Element;
 					$newOptions[ $item->getName() ] = $_POST[ $item->getName() ];
 				}
 			}
@@ -258,7 +265,7 @@ class W2P_Admin
 	 */
 	public function w2p_theme_admin()
 	{
-		$html = new W2P_Admin_Html();
+		$html = new Admin\Html();
 		$html->render();
 	}
 }

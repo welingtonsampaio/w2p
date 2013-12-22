@@ -20,6 +20,8 @@
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
 
+namespace W2P\Filter;
+
 /**
  * 
  * @author		Welington Sampaio ( @link http://welington.zaez.net )
@@ -31,7 +33,7 @@
  * @copyright	Copyright (c) 2012 Zaez Solução em Tecnologia Ltda - Welington Sampaio
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
-class W2P_Filter_StringToLower extends W2P_Filter_Abstract
+class StringToLower extends AbstractClass
 {
 	/**
 	 * Encoding for the input string
@@ -44,6 +46,7 @@ class W2P_Filter_StringToLower extends W2P_Filter_Abstract
 	 * Constructor
 	 *
 	 * @param string|array $options OPTIONAL
+     *
 	 */
 	public function __construct($options = null)
 	{
@@ -56,13 +59,10 @@ class W2P_Filter_StringToLower extends W2P_Filter_Abstract
 			$options = $temp;
 		}
 
-		if (!array_key_exists('encoding', $options) && function_exists('mb_internal_encoding')) {
+		if (!array_key_exists('encoding', $options) && function_exists('mb_internal_encoding'))
 			$options['encoding'] = mb_internal_encoding();
-		}
 
-		if (array_key_exists('encoding', $options)) {
-			$this->setEncoding($options['encoding']);
-		}
+		if (array_key_exists('encoding', $options))  $this->setEncoding($options['encoding']);
 	}
 
 	/**
@@ -79,19 +79,19 @@ class W2P_Filter_StringToLower extends W2P_Filter_Abstract
 	 * Set the input encoding for the given string
 	 *
 	 * @param  string $encoding
-	 * @return W2P_Filter_StringToLower Provides a fluent interface
-	 * @throws W2P_Filter_Exception
+	 * @return StringToLower Provides a fluent interface
+	 * @throws Exception
 	 */
 	public function setEncoding($encoding = null)
 	{
 		if ($encoding !== null) {
 			if (!function_exists('mb_strtolower')) {
-				throw new W2P_Filter_Exception( __('mbstring is required for this feature', 'W2P') );
+				throw new Exception( __('mbstring is required for this feature', 'W2P') );
 			}
 
 			$encoding = (string) $encoding;
 			if (!in_array(strtolower($encoding), array_map('strtolower', mb_list_encodings()))) {
-				throw new W2P_Filter_Exception( sprintf( __("The given encoding '%s' is not supported by mbstring", 'W2P') , $encoding ) );
+				throw new Exception( sprintf( __("The given encoding '%s' is not supported by mbstring", 'W2P') , $encoding ) );
 			}
 		}
 
@@ -100,7 +100,7 @@ class W2P_Filter_StringToLower extends W2P_Filter_Abstract
 	}
 
 	/**
-	 * Defined by W2P_Filter_Interface
+	 * Defined by InterfaceClass
 	 *
 	 * Returns the string $value, converting characters to lowercase as necessary
 	 *

@@ -12,13 +12,15 @@
  * 
  *
  * @author		Welington Sampaio ( @link http://welington.zaez.net )
- * @version		1.0
+ * @version		2.0
  * 
  * @category	W2P
  * @package		W2P_Form
  * @copyright	Copyright (c) 2012 Zaez Solução em Tecnologia Ltda - Welington Sampaio
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
+
+namespace W2P\Form;
 
 /* Classe de auxilio para envio de emails padrao do wordpress */
 require_once( ABSPATH . WPINC . '/class-smtp.php' );
@@ -29,12 +31,12 @@ require_once( ABSPATH . WPINC . '/class-phpmailer.php');
  * @version		1.0
  * 
  * @category	W2P
- * @package		W2P_Form
+ * @namespace   W2P\Form
  * @since		1.0
- * @copyright	Copyright (c) 2012 Zaez Solução em Tecnologia Ltda - Welington Sampaio
+ * @copyright	Copyright (c) 2012 Zaez Soluções em Tecnologia Ltda - Welington Sampaio
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
-class W2P_Form_Form
+class Form
 {
 	const VERSION	= '1.0';
 	const ENCTYPE_APPLICATION	= 'application/x-www-form-urlencoded';
@@ -165,13 +167,13 @@ class W2P_Form_Form
 		$this->_mail = new PHPMailer();
 		 
 		// Configuracao
-		$this->setClient( W2P::getInstance()->configuration()->email_name );
-		$this->setFrom( W2P::getInstance()->configuration()->email_from );
+		$this->setClient( \W2P::getInstance()->configuration()->email_name );
+		$this->setFrom( \W2P::getInstance()->configuration()->email_from );
 		
 		
 		// Dados de desenvolvedor
-		$this->developer_link	= W2P::getInstance()->configuration()->developer_link;
-		$this->developer_logo	= W2P::getInstance()->configuration()->developer_logo;
+		$this->developer_link	= \W2P::getInstance()->configuration()->developer_link;
+		$this->developer_logo	= \W2P::getInstance()->configuration()->developer_logo;
 	
 		// Dados do Cliente
 		$this->ipaddress  = $_SERVER['REMOTE_ADDR'];
@@ -179,13 +181,13 @@ class W2P_Form_Form
 	}
 	/**
 	 * Adiciona elemento de entrado no formulario
-	 * @param W2P_Form_Element $element
-	 * @return W2P_Form_Form $this
+	 * @param Element $element
+	 * @return Form $this
 	 */
-	public function addElement( W2P_Form_Element $element )
+	public function addElement( Element $element )
 	{
-		if ( !($element instanceof W2P_Form_Element ) )
-			throw new W2P_Form_Exception( __('The element sent is invalid, must be sent one element W2P_Form_Element', 'W2P') );
+		if ( !($element instanceof Element ) )
+			throw new Exception( __('The element sent is invalid, must be sent one element \W2P\Form\Element', 'W2P') );
 		$this->_elements[] = $element;
 		return $this;
 	}
@@ -193,16 +195,16 @@ class W2P_Form_Form
 	 * Adiciona uma colecao de elementos de entrada
 	 * no formulario, atraves de uma matriz
 	 * @param array $elements
-	 * @return W2P_Form_Form $this
+	 * @return Form $this
 	 */
 	public function addElements( array $elements )
 	{
 		if ( !is_array($elements) )
-			throw new W2P_Form_Exception( __('The element sent is invalid, must be sent one element Array', 'W2P') );
+			throw new Exception( __('The element sent is invalid, must be sent one element Array', 'W2P') );
 		foreach ($elements as $element)
 		{
-			if ( !($element instanceof W2P_Form_Element ) )
-				throw new W2P_Form_Exception( __('The element sent is invalid, must be sent one element W2P_Form_Element', 'W2P') );
+			if ( !($element instanceof Element ) )
+				throw new Exception( __('The element sent is invalid, must be sent one element \W2P\Form\Element', 'W2P') );
 			$this->_elements[] = $element;
 		}
 		return $this;
@@ -210,7 +212,7 @@ class W2P_Form_Form
 	/**
 	 * Adiciona email a ser enviado em oculto Bco
 	 * @param string $bco
-	 * @return W2P_Form_Form $this
+	 * @return Form $this
 	 */
 	public function addBco( $bco )
 	{
@@ -221,7 +223,7 @@ class W2P_Form_Form
 	/**
 	 * Adiciona email a ser enviado
 	 * @param string $to
-	 * @return W2P_Form_Form $this
+	 * @return Form $this
 	 */
 	public function addTo( $to )
 	{
@@ -318,7 +320,7 @@ class W2P_Form_Form
 		$return = array();
 		foreach ( $this->_elements as $element )
 		{
-			$element instanceof W2P_Form_Element_Abstract;
+			$element instanceof Element\AbstractClass;
 			if ( !$element->isIgnored() )
 			{
 				$return[$element->getName()] = $element->getValue();
@@ -339,7 +341,7 @@ class W2P_Form_Form
 			$return = true;
 			foreach ( $this->_elements as $element )
 			{
-				$element instanceof W2P_Form_Element_Abstract;
+				$element instanceof Element\AbstractClass;
 				if ( !$element->isValid() )
 				{
 					$this->addError( $element->getErrors() );
@@ -355,13 +357,13 @@ class W2P_Form_Form
 	public function populate( array $data )
 	{
 		if ( !is_array($data) ) {
-			throw new W2P_Form_Exception( __('Invalid type given. Array expected.', 'W2P') );
+			throw new Exception( __('Invalid type given. Array expected.', 'W2P') );
 		}
 		foreach ( $data as $key=>$value )
 		{
 			foreach ( $this->_elements as $element )
 			{
-				$element instanceof W2P_Form_Element_Abstract;
+				$element instanceof Element\AbstractClass;
 				if ( $key == $element->getName() )
 				{
 					$element->setValue($value);
@@ -385,7 +387,7 @@ class W2P_Form_Form
 					$this->send( $to );
 				}
 				$this->printSuccess();
-			}else if ( W2P::getInstance()->helper()->isAjax() ) {
+			}else if ( \W2P::getInstance()->helper()->isAjax() ) {
 				echo json_encode( array( 'result' => 'error', 'error' => __('Fields filled invalid.', 'W2P') ) );
 				exit();
 			}
@@ -407,7 +409,7 @@ class W2P_Form_Form
 	 * Configura a mensagem de confirmacao de envio que
 	 * seja mostrada ao usuario
 	 * @param string $message
-	 * @return W2P_Form_Form $this
+	 * @return Form $this
 	 */
 	public function setConfirmMessage( $message )
 	{
@@ -417,7 +419,7 @@ class W2P_Form_Form
 	/**
 	 * Configura o enctype do formulario a ser enviado
 	 * @param string $message
-	 * @return W2P_Form_Form $this
+	 * @return Form $this
 	 */
 	public function setEnctype( $enctype )
 	{
@@ -446,7 +448,7 @@ class W2P_Form_Form
 	/**
 	 * Configura o metodo do formulario a ser enviado
 	 * @param string $message
-	 * @return W2P_Form_Form $this
+	 * @return Form $this
 	 */
 	public function setMethod( $method )
 	{
@@ -467,7 +469,7 @@ class W2P_Form_Form
 	/**
 	 * Configura o assunto da mensagem
 	 * @param string $subject
-	 * @return W2P_Form_Form $this
+	 * @return Form $this
 	 */
 	public function setSubject( $subject )
 	{
@@ -505,7 +507,7 @@ class W2P_Form_Form
 	 */
 	public function printSuccess()
 	{
-		if ( W2P::getInstance()->helper()->isAjax() )
+		if ( \W2P::getInstance()->helper()->isAjax() )
 		{
 			echo json_encode( array( 'result' => 'ok', 'message' => $this->confirm_message ) );
 			exit();
@@ -604,7 +606,7 @@ class W2P_Form_Form
  	 */
  	private function printError( $msg )
  	{
-	 	if ( W2P::getInstance()->helper()->isAjax() )
+	 	if ( \W2P::getInstance()->helper()->isAjax() )
 	 	{
 		 	echo json_encode( array( 'result' => 'error', 'error' => $msg ) );
 		 	exit();
@@ -689,12 +691,12 @@ class W2P_Form_Form
 	
 	private function validateEmail( $email )
 	{
-		$validator = new W2P_Validate_EmailAddress();
+		$validator = new \W2P\Validate\EmailAddress();
 		$validator->setValue($email);
 		if ( !$validator->isValid() )
 		{
 			$e = (array_values( $validator->getMessages() ));
-			throw new W2P_Form_Exception( $e[0] );
+			throw new Exception( $e[0] );
 		}
 		return $email;
 	}
@@ -706,7 +708,7 @@ class W2P_Form_Form
 		
 		foreach ( $this->_elements as $element )
 		{
-			$element instanceof W2P_Form_Element;
+			$element instanceof Element;
 			$e['element'] = $element;
 			$elements .= @preg_replace('/\{([^}]*)\}/e', '$e[\\1]', $this->getTemplateElement() );
 		}
@@ -724,8 +726,8 @@ class W2P_Form_Form
 		}
 		
 		$data['errors'] = @preg_replace('/\{([^}]*)\}/e', '$errors[\\1]', $this->getTemplateError() );
-		$data['tosend'] = new W2P_Form_Element_Hidden('W2P_'.$this->getName(),array('value'=>$this->getName()));
-		$data['captcha'] = new W2P_Form_Element_Hidden('w2p_required_name');
+		$data['tosend'] = new Element\Hidden('W2P_'.$this->getName(),array('value'=>$this->getName()));
+		$data['captcha'] = new Element\Hidden('w2p_required_name');
 		
 		$form = @preg_replace('/\{([^}]*)\}/e', '$data[\\1]', $this->getTemplateForm() );
 		

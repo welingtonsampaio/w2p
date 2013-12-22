@@ -20,6 +20,8 @@
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
 
+namespace W2P\Filter;
+
 /**
  * Interface de criacao de filtros
  * 
@@ -32,13 +34,13 @@
  * @copyright	Copyright (c) 2012 Zaez Solução em Tecnologia Ltda - Welington Sampaio
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
-interface W2P_Filter_Interface
+interface InterfaceClass
 {
 	/**
 	 * Returns the result of filtering $value
 	 *
 	 * @param  mixed $value
-	 * @throws W2P_Filter_Exception If filtering $value is impossible
+	 * @throws Exception If filtering $value is impossible
 	 * @return mixed
 	 */
 	public function filter($value);

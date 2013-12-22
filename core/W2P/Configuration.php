@@ -20,6 +20,8 @@
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
 
+namespace W2P;
+
 /**
  * Classe para request de configuracoes do theme 
  * e da pagina administrativa
@@ -33,7 +35,7 @@
  * @copyright	Copyright (c) 2012 Zaez Solução em Tecnologia Ltda - Welington Sampaio
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
-class W2P_Configuration
+class Configuration
 {
 	/**
 	 * Contem as configuracoos do sistema, caminhos de
@@ -58,7 +60,7 @@ class W2P_Configuration
 	 * Imprime o conteudo das configuracoes
 	 * de forma a nao atrapalhar o visual da
 	 * pagina
-	 * @return void
+	 * @param boolean $hide
 	 */
 	public function debugging($hide = true)
 	{
@@ -88,7 +90,7 @@ class W2P_Configuration
 				'version'				=> W2P_VERSION,
 				'system_autor'			=> 'Welington Sampaio',
 				'system_url'			=> 'http://w2p.zaez.net/',
-				'core_path'				=> '/core',
+                'core_path'				=> '/core',
 				'assets_path'			=> '/assets',
 				'helper_path'			=> '/helpers',
 				'module_path'			=> '/modules',
@@ -126,7 +128,7 @@ class W2P_Configuration
 	 * of the requested property
 	 * 
 	 * @param string $property
-	 * @throws W2P_Exception
+	 * @throws Exception
 	 * @since 1.0
 	 * @return mixed
 	 */
@@ -135,7 +137,7 @@ class W2P_Configuration
 		if ( key_exists($property, $this->_properties) )
 			return $this->_properties[$property];
 		// DEBUG caso nao exista a propriedade
-		throw new W2P_Exception( sprintf(__('The property %s was not configured in the system.', 'W2P'), $property) );
+		throw new Exception( sprintf(__('The property %s was not configured in the system.', 'W2P'), $property) );
 		return false;
 	}
 	/**
@@ -144,7 +146,7 @@ class W2P_Configuration
 	 * @param string $property
 	 * @param mixed $value
 	 * @since 1.0
-	 * @throws W2P_Exception
+	 * @throws Exception
 	 * @return boolean
 	 */
 	public function __set($property, $value)
@@ -152,8 +154,7 @@ class W2P_Configuration
 		$property = str_replace('__', '', $property);
 		if ( in_array($property, $this->_protected) )
 		{
-			throw new W2P_Exception( sprintf(__('%s is a privately owned system, try again with another name.', 'W2P'), $property) );
-			return false;
+			throw new Exception( sprintf(__('%s is a privately owned system, try again with another name.', 'W2P'), $property) );
 		}
 		$this->_properties[$property] = $value;
 		

@@ -20,6 +20,8 @@
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
 
+namespace W2P\Validate;
+
 /**
  * @author		Welington Sampaio ( @link http://welington.zaez.net )
  * @version		1.0
@@ -30,7 +32,7 @@
  * @copyright	Copyright (c) 2012 Zaez Solução em Tecnologia Ltda - Welington Sampaio
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
-class W2P_Validate_EmailAddress extends W2P_Validate_Abstract
+class EmailAddress extends AbstractClass
 {
 	const INVALID			= 'emailAddressInvalid';
 	const INVALID_FORMAT	= 'emailAddressInvalidFormat';
@@ -46,11 +48,13 @@ class W2P_Validate_EmailAddress extends W2P_Validate_Abstract
 	);
 	
 	/**
-	 * Defined by W2P_Filter_Interface
+	 * Defined by InterfaceClass
 	 * 
 	 * Conforms approximately to RFC2822
 	 * @link http://www.hexillion.com/samples/#Regex Original pattern found here
-	 * 
+	 *
+     * @param $value String
+     *
 	 * @return boolean
 	 */
 	public function isValid( $value = null )
@@ -87,14 +91,19 @@ class W2P_Validate_EmailAddress extends W2P_Validate_Abstract
 	}
 	
 	/**
-	 * Defined by Zend_Filter_Interface
+	 * Defined by InterfaceClass
+     *
+     * @param $messageVariable
+     * @param $value
+     *
+     * @throws Exception
 	 *
-	 * @return string
+	 * @return String
 	 */
 	public function getMessage( $messageVariable, $value )
 	{
 		if ( !in_array($messageVariable, $this->_messageVariables) )
-			throw new W2P_Validate_Exception( sprintf( __("There is registered message to: %s", 'W2P'), $messageVariable) );
+			throw new Exception( sprintf( __("There is registered message to: %s", 'W2P'), $messageVariable) );
 		switch ( $messageVariable )
 		{
 			case self::INVALID		:

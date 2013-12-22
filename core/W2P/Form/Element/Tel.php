@@ -21,6 +21,8 @@
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
 
+namespace W2P\Form\Element;
+
 /**
  * Define the element text input
  * 
@@ -34,7 +36,7 @@
  * @copyright	Copyright (c) 2012 Zaez Solução em Tecnologia Ltda - Welington Sampaio
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
-class W2P_Form_Element_Tel extends W2P_Form_Element_Text
+class Tel extends Text
 {
 	
 	/**

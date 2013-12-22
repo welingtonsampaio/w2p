@@ -20,6 +20,8 @@
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
 
+namespace W2P\Filter;
+
 /**
  * 
  * @author		Welington Sampaio ( @link http://welington.zaez.net )
@@ -31,7 +33,7 @@
  * @copyright	Copyright (c) 2012 Zaez Solução em Tecnologia Ltda - Welington Sampaio
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
-class W2P_Filter_Digits extends W2P_Filter_Abstract
+class Digits extends AbstractClass
 {
 	/**
 	 * Is PCRE is compiled with UTF-8 and Unicode support
@@ -44,7 +46,6 @@ class W2P_Filter_Digits extends W2P_Filter_Abstract
      *
      * Checks if PCRE is compiled with UTF-8 and Unicode support
      *
-     * @return void
 	 */
 	public function __construct()
 	{

@@ -21,6 +21,8 @@
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
 
+namespace W2P\Form\Element;
+
 /**
  * @author		Welington Sampaio ( @link http://welington.zaez.net )
  * @version		1.0
@@ -32,7 +34,7 @@
  * @copyright	Copyright (c) 2012 Zaez Solução em Tecnologia Ltda - Welington Sampaio
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
-interface W2P_Form_Element_Interface
+interface InterfaceClass
 {
 	/**
 	 * Define o modo de impressao do elemento

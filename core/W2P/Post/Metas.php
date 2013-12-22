@@ -21,6 +21,10 @@
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
 
+namespace W2P\Post;
+use W2P\Form\Element;
+use W2P\W2P;
+
 /**
  * Classe responsavel por gerar modelos de metas
  * para os diversos tipos de posts e paginas, elas
@@ -40,15 +44,32 @@
  * @copyright	Copyright (c) 2012 Zaez Solução em Tecnologia Ltda - Welington Sampaio
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
-class W2P_Post_Metas
+class Metas
 {
-	/**
-	 * Matriz contendo todos os itens
-	 * para criacao dos campos personalizados
-	 * 
-	 * @var array
-	 */
-	protected $_itens = array();
+    /**
+     * Guarda os dados da meta requerida e
+     * solicitada ao banco, esta cache
+     * funciona apenas no tempo de execução
+     * deste processo
+     *
+     * @var array
+     */
+    public static $_cached = array();
+    /**
+     * Matriz contendo todos os itens
+     * para criacao dos campos personalizados
+     *
+     * @var array
+     */
+    protected $_itens = array();
+    /**
+     * Define se a meta deve ser gravada
+     * em um unico campo do banco de
+     * dados
+     *
+     * @var boolean
+     */
+    protected $compact = null;
 	/**
 	 * Nome do custom meta, este deve
 	 * ser unico
@@ -68,40 +89,36 @@ class W2P_Post_Metas
 	 * Metodo construtor, configura o nome
 	 * e o post_type do objeto
 	 * 
-	 * @param string $name
-	 * @param string $post_type
+	 * @param $name string
+	 * @param $post_type string
+     * @param $compact boolean
+     *  Informe se a meta deve ser gravado em um unico campo do banco de dados.
+     *  Padrao true
 	 */
-	public function __construct( $name , $post_type )
+	public function __construct( $name , $post_type, $compact=true )
 	{
-		$this->name = $name;
-		$this->type = $post_type;
+		$this->name    = $name;
+        $this->type    = $post_type;
+        $this->compact = (boolean) $compact;
 	}
 	/**
 	 * Create a new field in your post meta
-	 * 
-	 * @param string $name
-	 * @param string $type
-	 * 		Options: text, radio, textarea, image
-	 * @param string $label
-	 * @param string $defaultValue
-	 * @param string $params
+	 *
+     * @version 2.0
+     *
+	 * @param $item Element
 	 * @throws Exception
-	 * 		Caso o tipo enviado nao seja valido
-	 * @return W2P_Post_Metas
+	 * 		Caso o item enviado nao seja um Element
+	 * @return Metas
 	 */
-	public function addItem( $name, $type, $label, $defaultValue = '', $params = '' )
+	public function addItem( $item )
 	{
-		$options = array( 'text', 'textarea', 'radio', 'image' );
-		if ( in_array($type, $options) )
+		if ( $item instanceof Element )
 		{
-			$this->_itens[$name]['name'] = $name;
-			$this->_itens[$name]['type'] = $type;
-			$this->_itens[$name]['label'] = $label;
-			$this->_itens[$name]['defaultValue'] = $defaultValue;
-			$this->_itens[$name]['params'] = $params;
+			$this->_itens[$item->getName()] = $item;
 			return $this;
 		}
-		throw new Exception( sprintf( __('Invalid type "%s" for %s.', 'W2P'), $type, 'item' ) );
+		throw new Exception( sprintf( __('Invalid element for %s.', 'W2P'), $item ) );
 	}
 	/**
 	 * Responsible for include the generate the post meta
@@ -117,16 +134,22 @@ class W2P_Post_Metas
 	 */
 	public function generateHtml()
 	{
-		// Styles
-		wp_enqueue_style('thickbox');
-		wp_register_style('my-style-w2p', W2P_ASSETSPATH . 'css/style.css');
-		wp_enqueue_style('my-style-w2p');
-		
-		// Scripts
-		wp_enqueue_script('media-upload');
-		wp_enqueue_script('thickbox');
-		wp_register_script('my-js-w2p', W2P_ASSETSPATH . 'javascripts/script.js', array('jquery','media-upload','thickbox'));
-		wp_enqueue_script('my-js-w2p');
+        // Styles
+        wp_enqueue_style('thickbox');
+        echo '<link rel="stylesheet" type="text/css" href="' .W2P_URL . W2P::getInstance()->configuration()->assets_path . '/css/bootstrap.w2p.min.css'. '" />';
+        $style = W2P::getInstance()->stylesheet()->renderSass('w2p.scss', W2P_COREPATH.'/assets/scss/', true);
+        wp_register_style('w2p', $style);
+        wp_enqueue_style('w2p');
+
+        // Scripts
+        wp_enqueue_script('media-upload');
+        wp_enqueue_script('thickbox');
+        wp_register_script('mimetypes', W2P_ASSETSPATH . 'javascripts/mimetype.js');
+        wp_register_script('w2p', W2P_ASSETSPATH . 'javascripts/script.js', array('jquery','media-upload','thickbox'));
+        wp_enqueue_script('w2p');
+        wp_enqueue_script('mimetypes');
+        wp_register_script('bootstrap', W2P_URL . W2P::getInstance()->configuration()->assets_path . '/javascripts/bootstrap.min.js', array('jquery'));
+        wp_enqueue_script('bootstrap');
 		
 		
 		return include $this->getPath() . '_form.php';
@@ -135,16 +158,35 @@ class W2P_Post_Metas
 	 * Recupa no banco os dados da meta do post
 	 * indicado
 	 * 
-	 * @param integer $post_id
-	 * @param string $meta_name
-	 * @return array
+	 * @param $post_id integer
+	 * @param $meta_name string|array
+     *
+	 * @return array|mixin
 	 */
-	public static function get_metas_by_post( $post_id, $meta_name )
+	public static function get_meta_by_post( $post_id, $meta_name )
 	{
-		$dados =  get_post_meta($post_id, W2P_APPNAME . '_metas_' . $meta_name);
-		$dados = unserialize( base64_decode( $dados[0] ) );
-		return $dados;
+        if ( !is_array($meta_name) )
+        {
+            if ( !empty(self::$_cached[$post_id][$meta_name]) ) return self::$_cached[$post_id][$meta_name];
+            $meta_content = get_post_meta($post_id, $meta_name)[0];
+            self::$_cached[$post_id][$meta_name] = $meta_content;
+        }else{
+            if ( !empty(self::$_cached[$post_id][$meta_name[0]][$meta_name[1]]) )
+                return self::$_cached[$post_id][$meta_name[0]][$meta_name[1]];
+            $meta_content = get_post_meta($post_id, $meta_name[0]);
+            $meta_content = unserialize( base64_decode( $meta_content[0] ) );
+            self::$_cached[$post_id][$meta_name[0]] = $meta_content;
+            $meta_content = $meta_content[$meta_name[1]];
+        }
+        return $meta_content;
 	}
+
+    public function meta_name_for($item) {
+        if ( $this->compact )
+            return array( $this->name, $item->getName() );
+        else
+            return $this->name . ' - ' . $item->getName();
+    }
 	/**
 	 * Generate the post meta
 	 */
@@ -155,6 +197,7 @@ class W2P_Post_Metas
 	/**
 	 * Action responsavel por salvar os dados no banco
 	 * @param integer $post_id
+     * @return Integer se salvamento automatico
 	 */
 	public function w2p_save_meta( $post_id )
 	{
@@ -168,13 +211,26 @@ class W2P_Post_Metas
 			if ( $_POST['custom-post'] == md5($this->name) )
 			{
 				$dados = array();
-				
-				foreach ( $this->_itens as $item )
-				{
-					$dados[ $item['name'] ]		= ( isset($_POST[ $item['name'] ])	? $_POST[ $item['name'] ]	: '' );
-				}
-				
-				update_post_meta ( $post->ID, W2P_APPNAME . '_metas_' . $this->name , base64_encode( serialize($dados) ) );
+                if ( $this->compact )
+                {
+                    foreach ( $this->_itens as $item )
+                    {
+                        /** @var $item Element */
+                        $item->setValue( ( isset($_POST[ $item->getName() ])	? $_POST[ $item->getName() ]	: '' ) );
+                        $dados[ $item->getName() ] = $item->getValue();
+                    }
+                    update_post_meta ( $post->ID, $this->name , base64_encode( serialize($dados) ) );
+                }else{
+                    foreach ( $this->_itens as $item )
+                    {
+                        /** @var $item Element */
+                        $item->setValue( ( isset($_POST[ $item->getName() ])	? $_POST[ $item->getName() ]	: '' ) );
+                        update_post_meta ( $post->ID, $this->name . " - " . $item->getName() , $item->getValue() );
+                    }
+                }
+
+
+
 			}
 		}
 	}

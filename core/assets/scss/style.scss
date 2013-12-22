@@ -35,9 +35,9 @@ $imgpath = "../../core/assets/images/";
       float: left;
       min-width: 600px;
       padding: 10px 30px 30px;
-      @include border-radius(20px);
+      @include border-radius(8px);
       background-color: white;
-      @include box-shadow(rgba(black, 0.25), 0, 0, 25px);
+      @include box-shadow(rgba(black, 0.1), 0, 0, 20px);//rgba(30,30,30, 0.2)
       h3{
         margin-bottom: 20px;
         i {
@@ -109,6 +109,7 @@ div {
     &.gravar {
       text-align: right; } } }
 */
+}
 #w2p-loading {
   display: none;
   opacity: 0;
@@ -197,11 +198,90 @@ div {
 ==========================*/
 
 .w2p-metas {
+
   background: url($imgpath + 'bg_admin_mini.png') no-repeat right top;
+
   input {
-    width: 50%; }
+    width: 50%;
+  }
+
   textarea {
     width: 60%;
-    min-height: 80px; }
+    min-height: 80px;
+  }
+
   input[type="button"] {
-    width: auto !important; } }
+    width: auto !important;
+  }
+
+  .item {
+    padding: 12px 0;
+
+    label, .label { display: block; }
+    .label {
+      padding-bottom: 10px;
+      background-color: transparent;
+      color: inherit;
+      text-shadow: none;
+      font-weight: normal;
+      font-size: 14px;
+    }
+
+
+  }
+}
+
+
+
+
+/** File Wp **/
+div.w2p-upload{
+  width: 80px;
+  height: 80px;
+  display: block;
+  padding: 10px;
+  border: 2px dashed #dedede;
+  cursor: pointer;
+
+  -webkit-transition: all 0.3s linear;
+  -moz-transition: all 0.3s linear;
+  -o-transition: all 0.3s linear;
+  transition: all 0.3s linear;
+
+  div.file {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    color: transparent;
+    line-height: 80px;
+    text-align: center;
+    position: relative;
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s linear;
+    -o-transition: all 0.3s linear;
+    transition: all 0.3s linear;
+
+  }
+
+
+  &:before {
+    content: " ";
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(white, 0.0);
+    position: absolute;
+    z-index: -1;
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s linear;
+    -o-transition: all 0.3s linear;
+    transition: all 0.3s linear;
+  }
+  &:hover {
+    border-color: darken(#dedede, 20%);
+
+    .file:hover{ color: #333; }
+    &:before { background-color: rgba(white, 0.25); }
+
+  }
+}

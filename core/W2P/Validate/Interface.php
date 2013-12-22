@@ -20,6 +20,8 @@
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
 
+namespace W2P\Validate;
+
 /**
  * @author		Welington Sampaio ( @link http://welington.zaez.net )
  * @version		1.0
@@ -30,7 +32,7 @@
  * @copyright	Copyright (c) 2012 Zaez Solução em Tecnologia Ltda - Welington Sampaio
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
-interface W2P_Validate_Interface
+interface InterfaceClass
 {
 	/**
 	 * Retorna true se e somente se o valor atende aos
@@ -64,7 +66,10 @@ interface W2P_Validate_Interface
 	/**
 	 * Retorna uma string da mensagem que explica um erro
 	 * traduzido para a linguagem configurada
-	 * 
+	 *
+     * @param $messageVariable
+     * @param $value
+     *
      * @return string
 	 */
 	public function getMessage($messageVariable, $value);

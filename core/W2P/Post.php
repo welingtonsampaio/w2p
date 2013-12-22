@@ -20,6 +20,10 @@
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
 
+namespace W2P;
+use W2P\Post\Custom;
+use W2P\Post\Metas;
+
 /**
  * Classe responsavel por geracao e configuracoes
  * de tudo relacionado a posts
@@ -33,7 +37,7 @@
  * @copyright	Copyright (c) 2012 Zaez Solução em Tecnologia Ltda - Welington Sampaio
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
-class W2P_Post
+class Post
 {
 	/**
 	 * Add a new Custom post in your theme
@@ -46,20 +50,22 @@ class W2P_Post
 	 * @param string $titlePluralize
 	 * 				Name of the Custom post, that will
 	 * 				appear in the local pluralized
+     * @return Custom
 	 */
 	public function addCustomPost( $name, $title, $titlePluralize )
 	{
-		return new W2P_Post_Custom( $name, $title, $titlePluralize );
+		return new Custom( $name, $title, $titlePluralize );
 	}
 	/**
 	 * Add a new Custom Meta post in your theme
 	 * 
 	 * @param string $name
-	 * @param string $post_type
-	 * @return W2P_Post_Metas
+     * @param string $post_type
+     * @param boolean $compact
+	 * @return Metas
 	 */
-	public function addCustomMeta( $name, $post_type )
+	public function addCustomMeta( $name, $post_type, $compact=true )
 	{
-		return new W2P_Post_Metas($name, $post_type);
+		return new Metas($name, $post_type, $compact);
 	}
 }

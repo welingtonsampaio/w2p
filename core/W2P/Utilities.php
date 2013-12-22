@@ -32,7 +32,7 @@ class W2P_Utilities
 		// 'of_ad_top_image' );
 		// Sanitise the token.
 		if (! $_name)
-			throw new W2P_Exception ( __ ( 'Must be informed a valid name!', 'W2P' ) );
+			throw new Exception ( __ ( 'Must be informed a valid name!', 'W2P' ) );
 		
 		$_name = strtolower ( str_replace ( ' ', '_', $_name ) );
 		

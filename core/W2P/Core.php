@@ -20,6 +20,8 @@
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
 
+namespace W2P;
+
 /**
  * Classe responsavel por definicoes de view e layout
  * alem de imprimir o conteudo renderizado
@@ -33,7 +35,7 @@
  * @copyright	Copyright (c) 2012 Zaez Solução em Tecnologia Ltda - Welington Sampaio
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
-class W2P_Core
+class Core
 {
 	/**
 	 * Conteudo gerado para aview
@@ -61,25 +63,40 @@ class W2P_Core
 	 * @since 1.1
 	 */
 	public function render() {
-		W2P::getInstance()->debug()->_debug_add_content ( "Executing all modules methods." );
-		W2P::getInstance()->modules()->exec_all_functions();
-		
-		W2P::getInstance()->debug()->_debug_add_content ( "Generating rendering of the view: {$this->view}" );
+        $instance = W2P::getInstance();
+		$instance->debug()->_debug_add_content ( "Executing all modules methods." );
+        $instance->modules()->exec_all_functions();
+
+        $instance->debug()->_debug_add_content ( "Generating rendering of the view: {$this->view}" );
 		
 		ob_start ();
-		include_once (W2P_INCLUDE . W2P::getInstance()->configuration()->layout_path . '/views/' . $this->view . '.phtml');
+		include_once (W2P_INCLUDE . $instance->configuration()->layout_path . '/views/' . $this->view . '.phtml');
 		$this->content = ob_get_clean ();
 		
-		W2P::getInstance()->debug()->_debug_add_content ( "Content of the rendered view" );
-		W2P::getInstance()->debug()->_debug_add_content ( "Adding to the project layout" );
+		$instance->debug()->_debug_add_content ( "Content of the rendered view" );
+		$instance->debug()->_debug_add_content ( "Adding to the project layout" );
 		
-		include (W2P_INCLUDE . W2P::getInstance()->configuration()->layout_path . '/' . $this->layout . '.phtml');
+		include (W2P_INCLUDE . $instance->configuration()->layout_path . '/' . $this->layout . '.phtml');
 		
-		W2P::getInstance()->debug()->_debug_add_content ( "Layout successfully mastered" );
+		$instance->debug()->_debug_add_content ( "Layout successfully mastered" );
 		
-		if (W2P::getInstance()->configuration()->debug)
-			W2P::getInstance()->debug()->save_debug ( W2P::getInstance()->configuration()->debug_format );
+		if ($instance->configuration()->debug)
+			$instance->debug()->save_debug ( $instance->configuration()->debug_format );
 	}
+
+    /**
+     *
+     */
+    public function renderByRoutes() {
+        global $post;
+        if ( is_page() ) {
+            print_r( $post );
+        }elseif ( is_single() ) {
+            echo "asd";
+        }else{
+            echo 'padrao geral';
+        }
+    }
 	/**
 	 * Configura o layout da pagina
 	 *

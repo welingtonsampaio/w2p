@@ -19,6 +19,8 @@
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
 
+namespace W2P;
+
 define('W2P_VERSION', '2.0');
 
 defined( 'W2P_APPNAME' )
@@ -28,7 +30,8 @@ defined ( 'W2P_ASSETSPATH' )
 	|| define( 'W2P_ASSETSPATH' , W2P_URL.DIRECTORY_SEPARATOR.'core/assets/' );
 
 defined ( 'W2P_COREPATH' )
-	|| define( 'W2P_COREPATH' , realpath(dirname(__FILE__) . '/') );
+	|| define( 'W2P_COREPATH' , realpath(dirname(__FILE__) . '/../') );
+
 
 require_once W2P_COREPATH . '/W2P/Autoloader.php';
 require_once W2P_COREPATH . '/W2P/Core.php';
@@ -50,7 +53,7 @@ require_once W2P_COREPATH . '/W2P/Core.php';
  * @copyright	Copyright (c) 2012 Zaez Solu��o em Tecnologia Ltda - Welington Sampaio
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
-class W2P extends W2P_Core
+class W2P extends Core
 {
 	/**
 	 * Instancia unica do objeto
@@ -73,12 +76,13 @@ class W2P extends W2P_Core
 	protected $__language = null;
 	protected $__modules = null;
 	protected $__post = null;
+    protected $__route = null;
 	protected $__stylesheet = null;
 	/**#@-*/
 	
 	public function __construct()
 	{
-		new W2P_Autoloader();
+		new Autoloader();
 	}
 	/**
 	 * Retorna o objeto propriamente dito
@@ -102,122 +106,133 @@ class W2P extends W2P_Core
 	 * Retorna o objeto admin
 	 * @version 1.0
 	 * @see W2P_Admin()
-	 * @return W2P_Admin
+	 * @return Admin
 	 */
 	public function admin()
 	{
 		if ( !$this->__admin )
-			$this->__admin = new W2P_Admin();
+			$this->__admin = new Admin();
 		return $this->__admin;
 	}
 	/**
 	 * Retorna o objeto configuration
 	 * @version 1.0
-	 * @return W2P_Configuration
+	 * @return Configuration
 	 */
 	public function configuration()
 	{
 		if ( !$this->__configuration )
-			$this->__configuration = new W2P_Configuration();
+			$this->__configuration = new Configuration();
 		return $this->__configuration;
 	}
 	/**
 	 * Retorna o objeto debug
 	 * @version 1.0
-	 * @return W2P_Debug
+	 * @return Debug
 	 */
 	public function debug()
 	{
 		if ( !$this->__debug )
-			$this->__debug = new W2P_Debug();
+			$this->__debug = new Debug();
 		return $this->__debug;
 	}
 	/**
 	 * Retorna o objeto email
 	 * @version 1.0
-	 * @return W2P_Email
+	 * @return Email
 	 */
 	public function email()
 	{
 		if ( !$this->__email )
-			$this->__email = new W2P_Email();
+			$this->__email = new Email();
 		return $this->__email;
 	}
 	/**
 	 * Retorna o objeto helper
 	 * @version 1.0
-	 * @return W2P_Helper
+	 * @return Helper
 	 */
 	public function helper()
 	{
 		if ( !$this->__helper )
-			$this->__helper = new W2P_Helper();
+			$this->__helper = new Helper();
 		return $this->__helper;
 	}
 	/**
 	 * Retorna o objeto html
 	 * @version 1.0
-	 * @return W2P_Html
+	 * @return Html
 	 */
 	public function html()
 	{
 		if ( !$this->__html )
-			$this->__html = new W2P_Html();
+			$this->__html = new Html();
 		return $this->__html;
 	}
 	/**
 	 * Retorna o objeto javascript
 	 * @version 1.0
-	 * @return W2P_Javascript
+	 * @return Javascript
 	 */
 	public function javascript()
 	{
 		if ( !$this->__javascript)
-			$this->__javascript = new W2P_Javascript();
+			$this->__javascript = new Javascript();
 		return $this->__javascript;
 	}
 	/**
 	 * Retorna o objeto language
 	 * @version 1.0
-	 * @return W2P_Language
+	 * @return Language
 	 */
 	public function language()
 	{
 		if ( !$this->__language )
-			$this->__language = new W2P_Language();
+			$this->__language = new Language();
 		return $this->__language;
 	}
 	/**
 	 * Retorna o objeto modules
 	 * @version 1.0
-	 * @return W2P_Modules
+	 * @return Modules
 	 */
 	public function modules()
 	{
 		if ( !$this->__modules )
-			$this->__modules = new W2P_Modules();
+			$this->__modules = new Modules();
 		return $this->__modules;
 	}
-	/**
-	 * Retorna o objeto post
-	 * @version 1.0
-	 * @return W2P_Post
-	 */
-	public function post()
-	{
-		if ( !$this->__post )
-			$this->__post = new W2P_Post();
-		return $this->__post;
-	}
+    /**
+     * Retorna o objeto post
+     * @version 1.0
+     * @return Post
+     */
+    public function post()
+    {
+        if ( !$this->__post )
+            $this->__post = new Post();
+        return $this->__post;
+    }
+    /**
+     * Retorna o objeto route
+     * @version 1.0
+     * @return Route
+     */
+    public function route()
+    {
+        if ( !$this->__route )
+            $this->__route = new Route();
+        return $this->__route;
+    }
 	/**
 	 * Retorna o objeto stylesheet
-	 * @version 1.0
-	 * @return W2P_Stylesheet
+	 * @version 1.1
+	 * @return Stylesheet
 	 */
 	public function stylesheet()
 	{
 		if ( !$this->__stylesheet )
-			$this->__stylesheet = new W2P_Stylesheet();
+			$this->__stylesheet = new Stylesheet;
 		return $this->__stylesheet;
 	}
 }

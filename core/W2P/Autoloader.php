@@ -20,6 +20,8 @@
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
 
+namespace W2P;
+
 /**
  * Classe responsavel por inclusoes de classes automaticamente
  * 
@@ -34,12 +36,11 @@
  * @copyright	Copyright (c) 2012 Zaez Solução em Tecnologia Ltda - Welington Sampaio
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
-class W2P_Autoloader
+class Autoloader
 {
     /**
      * Constructor
      *
-     * @return void
      */
     public function __construct()
     {

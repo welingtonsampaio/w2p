@@ -20,6 +20,8 @@
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
 
+namespace W2P;
+
 /**
  * Classe responsavel por configurar a linguagem atual
  * do w2p
@@ -28,12 +30,12 @@
  * @version 1.0
  * 
  * @category	W2P
- * @package		W2P
+ * @namespace	W2P
  * @since		1.0
- * @copyright	Copyright (c) 2012 Zaez Solução em Tecnologia Ltda - Welington Sampaio
+ * @copyright	Copyright (c) 2012 Zaez Soluções em Tecnologia Ltda - Welington Sampaio
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
-class W2P_Language
+class Language
 {
 	public function __construct()
 	{

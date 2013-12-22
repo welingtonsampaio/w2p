@@ -21,6 +21,9 @@
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
 
+namespace W2P\Admin;
+use W2P\W2P;
+
 /**
  * Classe responsavel por gerar o html da
  * pagina de administracao
@@ -35,7 +38,7 @@
  * @copyright	Copyright (c) 2012 Zaez Solução em Tecnologia Ltda - Welington Sampaio
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
-class W2P_Admin_Html
+class Html
 {
 	public function __construct()
 	{}

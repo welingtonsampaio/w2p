@@ -21,6 +21,8 @@
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
 
+namespace W2P\Form\Element;
+
 /**
  * Define the element text input
  * 
@@ -34,20 +36,21 @@
  * @copyright	Copyright (c) 2012 Zaez Solução em Tecnologia Ltda - Welington Sampaio
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
-class W2P_Form_Element_FileWp extends W2P_Form_Element_Abstract
+class FileWp extends AbstractClass
 {
 	/**
 	 * Modelo de impressao do elemento
 	 * @return string
 	 */
 	protected $_template = '
-	<label for="filewp-{id}" class="filewp-{id}">{label}</label>
-	<div class="form-search">
-	<div class="input-append">
-		<input type="text" class="span4 search-query" name="{name}" id="filewp-{id}"{value}{placeholder}{required}{autofocus}{attributes} />
-		<button type="button" class="btn w2p-upload" data-target="filewp-{id}" data-postid="{postid}">Upload</button>
+	<span class="filewp-{id} w2p-upload label" data-target="filewp-{id}" data-postid="{postid}">{label}</span>
+	<div class="show filewp-{id} w2p-upload" data-target="filewp-{id}" data-postid="{postid}" {data-conf}>
+	    <div class="file">{click_to_change}</div>
 	</div>
-	</div>';
+	<div class="data-infos w2p-upload">
+	</div>
+	<input type="hidden" class="span4 search-query" name="{name}" id="filewp-{id}"{value}{placeholder}{required}{autofocus}{attributes} />
+	';
 	/**
 	 * Tipo do elemento html
 	 * @var string
@@ -58,6 +61,13 @@ class W2P_Form_Element_FileWp extends W2P_Form_Element_Abstract
 	 * @var int
 	 */
 	protected $_postid = null;
+
+    private function getDataConf() {
+        return  ' data-title="'.__('W2P File Upload', 'w2p').'"' .
+                ' data-button-text="'.__('Use this file', 'w2p').'"' .
+                ' data-icon-path="'.W2P_ASSETSPATH.'images/icon/"' .
+                ' data-url-outhers="'.W2P_ASSETSPATH.'images/outhers.png"';
+    }
 
 	/**
 	 * Retorna a referencia de identificacao 
@@ -110,7 +120,8 @@ class W2P_Form_Element_FileWp extends W2P_Form_Element_Abstract
 	public function __toString()
 	{
 		$data = $this->toArray();
-		$tpl = $this->getTemplate();
+		$tpl = str_replace( '{data-conf}', $this->getDataConf(), $this->getTemplate() );
+        $tpl = str_replace( '{click_to_change}', __('Click to change', 'w2p'), $tpl );
 		return @preg_replace('/\{([^}]*)\}/e', '$data[\\1]', $tpl);
 	}
 }

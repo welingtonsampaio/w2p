@@ -20,6 +20,8 @@
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
 
+namespace W2P;
+
 /**
  * Classe responsavel por  tratar e adicionar arquivos
  * de stylesheet/less no theme
@@ -33,10 +35,10 @@
  * @copyright	Copyright (c) 2012 Zaez Solução em Tecnologia Ltda - Welington Sampaio
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
-class W2P_Stylesheet 
+class Stylesheet
 {
 	const INCLUDE_SASS = " *= require ";
-	
+
 	/**
 	 * Contem os nome e conteudo dos arquivos
 	 * a serem renderizados na pagina
@@ -44,20 +46,20 @@ class W2P_Stylesheet
 	 * @var array
 	 */
 	protected $_css = array ('style' => array (), 'error' => array (), 'archy' => array (), 'rack' => array (), 'vendor' => array (), 'less'=>array(), 'rackless'=>array() );
-	
+
 	/**
-	 * 
+	 *
 	 */
 	protected $_sassConfiguration = array(
 			'cache' => FALSE,
 			'debug' => false
 		);
-	
+
 	function __construct() {
 		$this->_sassConfiguration['style'] = W2P::getInstance()->configuration()->compress_css_js ? 'compressed' : 'nested';
 		$this->_sassConfiguration['syntax'] = W2P::getInstance()->configuration()->sass_extension;
-	} 
-	
+	}
+
 	/**
 	 * Adiciona o css a colecao para posteriormente no theme
 	 * ser rederizado como tal, seguindo a convencao que todos
@@ -94,7 +96,7 @@ class W2P_Stylesheet
 	/**
 	 * Adiciona o css a ser rederizado pelo theme
 	 *
-	 * @param string $stylesheet       	
+	 * @param string $stylesheet
 	 * @since 1.0
 	 * @deprecated 2.0
 	 * @return W2P_Stylesheet
@@ -103,7 +105,7 @@ class W2P_Stylesheet
 		$this->_css ['style'] [] = $stylesheet;
 		return $this;
 	}
-	
+
 	/**
 	 * Imprime os arquivos e configuracoes do css
 	 * no tema
@@ -136,7 +138,7 @@ class W2P_Stylesheet
 					W2P::getInstance()->debug()->_debug_add_content ( "File ( {$query} ).css reloaded successfully" );
 				echo "<link type=\"text/css\" rel=\"stylesheet\" href=\"" . W2P_URL . W2P::getInstance()->configuration()->assets_path . W2P::getInstance()->configuration()->cache_path . '/_css_' . md5 ( $query ) . '.css" />' . "\n";
 			}
-			
+
 			if (sizeof ( $this->_css ['rack'] )) {
 				foreach ( $this->_css ['rack'] as $key => $item ) {
 					$query = '';
@@ -145,7 +147,7 @@ class W2P_Stylesheet
 						$query .= ($i > 0 ? ',' : '') . $iitem;
 						$i ++;
 					}
-					
+
 					if ($this->generateCssMin ( $query ))
 						W2P::getInstance()->debug()->_debug_add_content ( "File ( {$query} ).css generated successfully (rack)" );
 					else
@@ -155,7 +157,7 @@ class W2P_Stylesheet
 			}
 		} else {
 			W2P::getInstance()->debug()->_debug_add_content ( "Not rendering of css" );
-			
+
 			if (sizeof ( $this->_css ['archy'] )) {
 				sort ( $this->_css ['archy'] );
 				foreach ( $this->_css ['archy'] as $key => $item ) {
@@ -163,7 +165,7 @@ class W2P_Stylesheet
 					echo "<link type=\"text/css\" rel=\"stylesheet\" href=\"" . W2P_URL . W2P::getInstance()->configuration()->assets_path . '/css/' . $item . '.css" />' . "\n";
 				}
 			}
-			
+
 			if (sizeof ( $this->_css ['rack'] )) {
 				foreach ( $this->_css ['rack'] as $key => $item ) {
 					foreach ( $item as $kkey => $iitem ) {
@@ -188,21 +190,21 @@ class W2P_Stylesheet
 	}
 	/**
 	 * Renderisa o CSS a partir de um arquivo de
-	 * configuração SASS ou SCSS, encontrado na 
-	 * pasta %assets%/scss, seguir modelo da 
+	 * configuração SASS ou SCSS, encontrado na
+	 * pasta %assets%/scss, seguir modelo da
 	 * documentação
-	 * 
+	 *
 	 * @since 1.0
 	 * @return W2P_Stylesheet
-	 */	
+	 */
 	public function renderSass($file=null, $path=null, $isAdmin=false)
 	{
 		// Inclui a biblioteca de compilação do sass
-		W2P_Autoloader::includeLib('SassParser', 'phpsass/');
-		
+		Autoloader::includeLib('SassParser', 'phpsass/');
+
 		// Definições de variaveis
 		$archy = array();
-		$currentMode = ( 
+		$currentMode = (
 				W2P::getInstance()->configuration()->compress_css_js ==
 				file_get_contents(W2P_INCLUDE . W2P::getInstance()->configuration()->assets_path . '/cache/control/sass_mode')
 				? false
@@ -214,15 +216,15 @@ class W2P_Stylesheet
 				$ext);
 		$path = ($path ? $path : W2P_INCLUDE . W2P::getInstance()->configuration()->assets_path . '/scss/');
 		$rack = array();
-		$sass = new SassParser($this->_sassConfiguration);
-		
+		$sass = new \SassParser($this->_sassConfiguration);
+
 		// Reescreve o modo utilizado atualmente
 		file_put_contents(W2P_INCLUDE . W2P::getInstance()->configuration()->assets_path . '/cache/control/sass_mode', W2P::getInstance()->configuration()->compress_css_js );
-		
+
 		// Pega o conteudo do arquivo principal de configuração do sass
 		$lines = file($path . $file,
 				FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-		
+
 		// Percorre as linhas de configurações para adicionar os arquivos sass
 		foreach ( $lines as $key=>&$line )
 		{
@@ -235,25 +237,25 @@ class W2P_Stylesheet
 				if ( strpos($line, ',') !== false )
 					// Se verdade Adiciona a linha como Rack IE
 					list($rack[$key]['file'],$rack[$key]['rack']) = explode(',', $line);
-				else 
+				else
 					// Se falso Adiciona a linha como sass comum
 					$archy[$key]['file'] = $line;
 			}
 		}
-		
+
 		// Reorganiza os arquivos no array
 		sort($archy);
 		// Percorre todos as linhas no array com os arquivo a adicionar
 		foreach ($archy as $_file)
 			// Adiciona o conteudo do arquivo sass
 			$contentFiles .= file_get_contents( $path . $_file['file'].'.'.$ext )."\n";
-		
+
 		// Verifica se existe o arquivo finaly.scss e se o mesmo é identico ao atual
 		$generate = true;
 		if ( file_exists(W2P_INCLUDE . W2P::getInstance()->configuration()->assets_path . '/scss/cache/finaly.'.$ext) )
 			if ( $contentFiles == file_get_contents( W2P_INCLUDE . W2P::getInstance()->configuration()->assets_path . '/scss/cache/finaly.'.$ext) )
 				$generate = false;
-		
+
 		// Verifica se foi criado um novo arquivo finaly.scss ou se foi modificado o modo de compressao
 		if ( $generate || $currentMode ) {
 			// Sobreescreve o arquivo finaly.scss
@@ -269,9 +271,9 @@ class W2P_Stylesheet
 		if (!$isAdmin)
 			// Imprime o conteudo do css renderisado a partir do arquivo sass
 			echo "<link type=\"text/css\" rel=\"stylesheet\" href=\"" . W2P_URL . W2P::getInstance()->configuration()->assets_path . '/css/style.css" />' . "\n";
-		else 
+		else
 			return W2P_URL . W2P::getInstance()->configuration()->assets_path . '/css/'.md5($file).'.css';
-		
+
 		foreach ( $rack as $_rack )
 		{
 			// Adiciona o conteudo do arquivo sass
@@ -295,7 +297,7 @@ class W2P_Stylesheet
 		}
 		return $this;
 	}
-	
+
 	/**
 	 * Gera um cache de css compactado de uma query enviada
 	 * conforme as configuracoes das pastas

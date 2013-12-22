@@ -128,12 +128,18 @@ jQuery(document).ready(function() {
 		btnContent = true,
 		tbframe_interval;
 		// On Click
-	jQuery('button.w2p-upload').bind("click", function () {
+	jQuery('.w2p-upload').bind("click", function () {
 		formfield = this.dataset.target;
 		formID = this.dataset.postid;
 
 		//Change "insert into post" to "Use this Button"
-		tbframe_interval = setInterval(function() {jQuery('#TB_iframeContent').contents().find('.savesend .button').val('Use This Image');}, 2000);
+		tbframe_interval = setInterval(function() {
+            var contents;
+            contents = jQuery('#TB_iframeContent').contents();
+            contents.find('.savesend .button').val('Use This File');
+            contents.find('.button.urlfile').trigger('click');
+            contents.find('input[type=radio][value=full]').trigger('click');
+        }, 700);
         
 		// Display a custom title for each Thickbox popup.
         var woo_title = 'W2P File Upload';
@@ -148,30 +154,34 @@ jQuery(document).ready(function() {
 	window.send_to_editor = function(html) {
         
 		if (formfield) {
+            console.log(html);
 			//clear interval for "Use this Button" so button text resets
 			clearInterval(tbframe_interval);
         	
 			// itemurl = $(html).attr('href'); // Use the URL to the main image.
-          
+
 			if ( jQuery(html).html(html).find('img').length > 0 ) {
 				itemurl = jQuery(html).html(html).find('img').attr('src'); // Use the URL to the size selected.
 			} else {
 				// It's not an image. Get the URL to the file instead.
 				var htmlBits = html.split("'"); // jQuery seems to strip out XHTML when assigning the string to an object. Use alternate method.
 				itemurl = htmlBits[1]; // Use the URL to the file.
-				
-				var itemtitle = htmlBits[2];
-				
-				itemtitle = itemtitle.replace( '>', '' );
-				itemtitle = itemtitle.replace( '</a>', '' );
+
 				
 			} // End IF Statement
 			var image = /(^.*\.jpg|jpeg|png|gif|ico*)/gi;
-			var document = /(^.*\.pdf|doc|docx|ppt|pptx|odt*)/gi;
-			var audio = /(^.*\.mp3|m4a|ogg|wav*)/gi;
-			var video = /(^.*\.mp4|m4v|mov|wmv|avi|mpg|ogv|3gp|3g2*)/gi;
+
+            var bg = jQuery('div.' + formfield).data('urlOuthers');
+            var ar = itemurl.split('.');
+            var ext = ar[ar.length-1];
+
+            if(image.test(itemurl))  bg  = itemurl;
+            if( existsExtIcon(ext) ){ bg  = jQuery('div.' + formfield).data('iconPath')+ext+".png"; }
 
 			jQuery('#' + formfield).val(itemurl);
+            jQuery('div.' + formfield + ' .file').css({
+                backgroundImage: 'url('+bg+')'
+            });
 			tb_remove();
 		} else {
 			window.original_send_to_editor(html);
@@ -181,3 +191,13 @@ jQuery(document).ready(function() {
 		formfield = '';
 	};
 });
+
+function existsExtIcon($ext) {
+    $extensions = ['3g2', '3gp', 'ai', 'air', 'asf', 'avi', 'bib', 'cls', 'csv', 'deb', 'djvu', 'dmg', 'doc', 'docx',
+                   'dwf', 'dwg', 'eps', 'epub', 'exe', 'f', 'f77', 'f90', 'flac', 'flv', 'gz', 'indd',
+                   'iso', 'log', 'm4a', 'm4v', 'midi', 'mkv', 'mov', 'mp3', 'mp4', 'mpeg', 'mpg', 'msi',
+                   'odp', 'ods', 'odt', 'oga', 'ogg', 'ogv', 'pdf', 'pps', 'ppsx', 'ppt', 'pptx', 'psd', 'pub',
+                   'py', 'qt', 'ra', 'ram', 'rar', 'rm', 'rpm', 'rtf', 'rv', 'skp', 'sql', 'sty', 'tar', 'tex', 'tgz',
+                   'tiff', 'ttf', 'txt', 'vob', 'wav', 'wmv', 'xls', 'xlsx', 'xml', 'xpi', 'zip'];
+    return jQuery.inArray( $ext, $extensions ) != -1
+}

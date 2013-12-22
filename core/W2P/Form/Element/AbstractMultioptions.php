@@ -21,6 +21,8 @@
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
 
+namespace W2P\Form\Element;
+
 /**
  * @author		Welington Sampaio ( @link http://welington.zaez.net )
  * @version		1.0
@@ -32,7 +34,7 @@
  * @copyright	Copyright (c) 2012 Zaez Solução em Tecnologia Ltda - Welington Sampaio
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
-abstract class W2P_Form_Element_AbstractMultioptions extends W2P_Form_Element_Abstract
+abstract class AbstractMultioptions extends AbstractClass
 {
 	/**
 	 * Opcoes de valores do elemento
@@ -49,7 +51,7 @@ abstract class W2P_Form_Element_AbstractMultioptions extends W2P_Form_Element_Ab
 	 * Adiciona uma nova opcao de valor no elemento
 	 * @param string $label
 	 * @param string $value
-	 * @return W2P_Form_Element_AbstractMultioptions
+	 * @return AbstractMultioptions
 	 */
 	public function addMultioption( $label, $value )
 	{
@@ -82,7 +84,7 @@ abstract class W2P_Form_Element_AbstractMultioptions extends W2P_Form_Element_Ab
 	 * 		'Masculino' => 'M'<br>
 	 * 		);
 	 * @param array $options
-	 * @return W2P_Form_Element_AbstractMultioptions
+	 * @return AbstractMultioptions
 	 */
 	public function setMultioptions( array $options )
 	{
@@ -93,7 +95,7 @@ abstract class W2P_Form_Element_AbstractMultioptions extends W2P_Form_Element_Ab
 	 * Seta um novo modelo de impressao da
 	 * opcao do elemento
 	 * @param string $template
-	 * @return W2P_Form_Element_AbstractMultioptions
+	 * @return AbstractMultioptions
 	 */
 	public function setTemplateOptions( $template )
 	{

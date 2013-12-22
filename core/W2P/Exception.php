@@ -16,9 +16,11 @@
  * 
  * @category	W2P
  * @package		W2P
- * @copyright	Copyright (c) 2012 Zaez Solução em Tecnologia Ltda - Welington Sampaio
+ * @copyright	Copyright (c) 2012 Zaez SoluÔøΩÔøΩo em Tecnologia Ltda - Welington Sampaio
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
+
+namespace W2P;
 
 /**
  * Show exception
@@ -29,8 +31,8 @@
  * @category	W2P
  * @package		W2P
  * @since		1.0
- * @copyright	Copyright (c) 2012 Zaez Solução em Tecnologia Ltda - Welington Sampaio
+ * @copyright	Copyright (c) 2012 Zaez SoluÔøΩÔøΩo em Tecnologia Ltda - Welington Sampaio
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
-class W2P_Exception extends Exception
+class Exception extends \Exception
 {}

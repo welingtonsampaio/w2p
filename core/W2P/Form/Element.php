@@ -20,6 +20,9 @@
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
 
+namespace W2P\Form;
+use W2P\Filter\AbstractClass;
+
 /**
  * @author		Welington Sampaio ( @link http://welington.zaez.net )
  * @version		1.0
@@ -30,7 +33,7 @@
  * @copyright	Copyright (c) 2012 Zaez Solução em Tecnologia Ltda - Welington Sampaio
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
-class W2P_Form_Element
+class Element
 {
 	/**
 	 * Atributos gerais do elemento
@@ -125,7 +128,8 @@ class W2P_Form_Element
 	 * 
 	 * @param  string $spec
 	 * @param  array $options
-	 * @return void
+     *
+     * @return Element
 	 */
 	public function __construct($spec, $options = null)
 	{
@@ -135,6 +139,7 @@ class W2P_Form_Element
 		if( null !== $options ) {
 			$this->setOptions($options);
 		}
+        return $this;
 	}
 	/**
      * Filter a name to only allow valid variable characters
@@ -153,6 +158,9 @@ class W2P_Form_Element
     }
     /**
      * Retorna o conteudo do attributo solicitado
+     *
+     * @param $name
+     *
      * @return string|false
      */
     public function getAttribute( $name )
@@ -298,7 +306,10 @@ class W2P_Form_Element
     /**
 	 * Define se o elemento deve ser requerido pelo
 	 * sistema ou nao
-	 * @return W2P_Form_Element
+     *
+     * @param $required Boolean
+     *
+	 * @return Element
 	 */
     public function required( $required=true )
     {
@@ -307,9 +318,11 @@ class W2P_Form_Element
     }
     /**
      * Define um atributo ao elemento do formulario
+     *
      * @param string $key
      * @param string $value
-     * @return W2P_Form_Element
+     *
+     * @return Element
      */
     public function setAttribute($key, $value)
     {
@@ -319,8 +332,10 @@ class W2P_Form_Element
     /**
      * Define se o elemento contera o atributo de
      * autofocus
+     *
      * @param boolean $autofocus
-     * @return W2P_Form_Element
+     *
+     * @return Element
      */
     public function setAutofocus($autofocus=true)
     {
@@ -330,10 +345,10 @@ class W2P_Form_Element
     /**
      * Adiciona filtros ao elemento
      * 
-     * @param W2P_Filter_Abstract $filter
-     * @return W2P_Form_Element
+     * @param AbstractClass $filter
+     * @return Element
      */
-    public function setFilter( W2P_Filter_Abstract $filter )
+    public function setFilter( AbstractClass $filter )
     {
     	$this->_filters[] = $filter;
     	return $this;
@@ -342,14 +357,16 @@ class W2P_Form_Element
      * Set element id
      *
      * @param  string $id
-     * @throws W2P_Form_Exception
-     * @return W2P_Form_Element
+     *
+     * @throws Exception
+     *
+     * @return Element
      */
     public function setId($id)
     {
     	$id = $this->filterName($id);
     	if ('' === $id)
-    		throw new W2P_Form_Exception( sprintf( __('Invalid %s provided; must contain only valid variable characters and be non-empty', 'W2P' ), 'name') );
+    		throw new Exception( sprintf( __('Invalid %s provided; must contain only valid variable characters and be non-empty', 'W2P' ), 'name') );
     	
     	$this->_id = $id;
     	return $this;
@@ -358,7 +375,7 @@ class W2P_Form_Element
      * Seta se o campo deve ser ignorado
      *
      * @param  boolean $ignore
-     * @return W2P_Form_Element
+     * @return Element
      */
     public function setIgnore($ignore)
     {
@@ -369,7 +386,7 @@ class W2P_Form_Element
      * Seta o label do elemento
      *
      * @param  string $label
-     * @return W2P_Form_Element
+     * @return Element
      */
     public function setLabel($label)
     {
@@ -385,7 +402,7 @@ class W2P_Form_Element
      * @link http://digitalbush.com/projects/masked-input-plugin/#license
      *
      * @param  string $mask
-     * @return W2P_Form_Element
+     * @return Element
      */
     public function setMask($mask)
     {
@@ -398,14 +415,14 @@ class W2P_Form_Element
      * Set element name
      *
      * @param  string $name
-     * @throws W2P_Form_Exception
-     * @return W2P_Form_Element
+     * @throws Exception
+     * @return Element
      */
     public function setName($name)
     {
         $name = $this->filterName($name);
         if ('' === $name) 
-            throw new W2P_Form_Exception( sprintf( __('Invalid %s provided; must contain only valid variable characters and be non-empty', 'W2P' ), 'name') );
+            throw new Exception( sprintf( __('Invalid %s provided; must contain only valid variable characters and be non-empty', 'W2P' ), 'name') );
 
         $this->_name = $name;
         return $this;
@@ -414,7 +431,7 @@ class W2P_Form_Element
 	 * Set object state from options array
 	 *
 	 * @param  array $options
-	 * @return W2P_Form_Element
+	 * @return Element
 	 */
 	public function setOptions( array $options )
 	{
@@ -436,7 +453,7 @@ class W2P_Form_Element
      * formulario a serem improssos
      * 
      * @param  int $order
-     * @return W2P_Form_Element
+     * @return Element
      */
     public function setOrder($order)
     {
@@ -447,7 +464,7 @@ class W2P_Form_Element
      * Configura o placeholder do elemento
      * 
      * @param  string $placeholder
-     * @return W2P_Form_Element
+     * @return Element
      */
     public function setPlaceholder($placeholder)
     {
@@ -458,7 +475,7 @@ class W2P_Form_Element
      * Configura o tipo do elemento
      * 
      * @param  string $type
-     * @return W2P_Form_Element
+     * @return Element
      */
     public function setType($type)
     {
@@ -467,29 +484,29 @@ class W2P_Form_Element
     }
 	/**
 	 * Adiciona validadores ao elemento de formulario
-	 * @param array|W2P_Validate_Abstract $validator
-	 * @throws W2P_Form_Exception
-	 * @return W2P_Form_Element
+	 * @param array|\W2P\Validate\AbstractClass $validator
+	 * @throws Exception
+	 * @return Element
 	 */
 	public function setValidator( $validator )
 	{
 		if ( is_array($validator) ) {
 			foreach ($validator as $v) {
-				if ( $v instanceof W2P_Validate_Abstract ) {
+				if ( $v instanceof \W2P\Validate\AbstractClass ) {
 					$this->_validators[] = $v;
 				}
 			}
-		}else if ( $validator instanceof W2P_Validate_Abstract ) {
+		}else if ( $validator instanceof \W2P\Validate\AbstractClass ) {
 			$this->_validators[] = $validator;
 		}else{
-			throw new W2P_Form_Exception( __('Validator for inserting invalid','W2P') );
+			throw new Exception( __('Validator for inserting invalid','W2P') );
 		}
 		return $this;
 	}
 	/**
 	 * Configura um novo valor para o objeto do elemento
 	 * @param mixed $value
-	 * @return W2P_Form_Element
+	 * @return Element
 	 */
 	public function setValue( $value )
 	{
@@ -501,7 +518,7 @@ class W2P_Form_Element
 	 * para seu correto funcionamento
 	 * 
 	 * @param	boolean $use
-	 * @return 	W2P_Form_Element
+	 * @return 	Element
 	 */
 	public function useJs( $use=true )
 	{
@@ -521,12 +538,12 @@ class W2P_Form_Element
 	/**
 	 * Aplica um filtro especifico para o retorno
 	 * @param mixed $value
-	 * @param W2P_Filter_Abstract $filter
+	 * @param AbstractClass $filter
 	 * @return mixed
 	 */
-	protected function applyFilter( $value, W2P_Filter_Abstract $filter )
+	protected function applyFilter( $value, AbstractClass $filter )
 	{
-		if ( $filter instanceof W2P_Filter_Abstract )
+		if ( $filter instanceof AbstractClass )
 			$value = $filter->filter( $value );
 		return $value;
 	}
@@ -553,13 +570,12 @@ class W2P_Form_Element
 	}
 	/**
 	 * Aplica um validador especifico no retorno
-	 * @param mixed $value
-	 * @param W2P_Validate_Abstract $validate
-	 * @return W2P_Validate_Abstract
+	 * @param \W2P\Validate\AbstractClass $validator
+	 * @return \W2P\Validate\AbstractClass
 	 */
-	protected function applyValidator( W2P_Validate_Abstract $validator )
+	protected function applyValidator( \W2P\Validate\AbstractClass $validator )
 	{
-		if ( $validator instanceof W2P_Validate_Abstract ) {
+		if ( $validator instanceof \W2P\Validate\AbstractClass ) {
 			$validator->setValue($this->getValue());
 			$validator->isValid();
 			return $validator;

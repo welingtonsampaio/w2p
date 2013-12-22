@@ -20,6 +20,8 @@
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
 
+namespace W2P\Filter;
+
 /**
  * 
  * @author		Welington Sampaio ( @link http://welington.zaez.net )
@@ -31,7 +33,7 @@
  * @copyright	Copyright (c) 2012 Zaez Solução em Tecnologia Ltda - Welington Sampaio
  * @license		http://creativecommons.org/licenses/by-nd/3.0/  Creative Commons
  */
-class W2P_Filter_HtmlEntities extends W2P_Filter_Abstract
+class HtmlEntities extends AbstractClass
 {
 	/**
 	 * Corresponds to the second htmlentities() argument
@@ -57,9 +59,9 @@ class W2P_Filter_HtmlEntities extends W2P_Filter_Abstract
 	/**
 	 * Sets filter options
 	 *
-	 * @param  integer|array $quoteStyle
-	 * @param  string  $charSet
-	 * @return void
+	 * @param  $options array | quotestyle  => ENT_COMPAT
+     *                        | encoding    => 'UTF-8'
+     *                        | doublequote => true
 	 */
 	public function __construct($options = array())
 	{
@@ -67,7 +69,7 @@ class W2P_Filter_HtmlEntities extends W2P_Filter_Abstract
 			$options = func_get_args();
 			$temp['quotestyle'] = array_shift($options);
 			if (!empty($options)) {
-				$temp['charset'] = array_shift($options);
+				$temp['encoding'] = array_shift($options);
 			}
 	
 			$options = $temp;
@@ -80,17 +82,14 @@ class W2P_Filter_HtmlEntities extends W2P_Filter_Abstract
 		if (!isset($options['encoding'])) {
 			$options['encoding'] = 'UTF-8';
 		}
-		if (isset($options['charset'])) {
-			$options['encoding'] = $options['charset'];
-		}
 	
 		if (!isset($options['doublequote'])) {
 			$options['doublequote'] = true;
 		}
 	
-		$this->setQuoteStyle($options['quotestyle']);
-		$this->setEncoding($options['encoding']);
-		$this->setDoubleQuote($options['doublequote']);
+		$this->setQuoteStyle($options['quotestyle'])
+            ->setEncoding($options['encoding'])
+            ->setDoubleQuote($options['doublequote']);
 	}
 	
 	/**
@@ -107,7 +106,7 @@ class W2P_Filter_HtmlEntities extends W2P_Filter_Abstract
 	 * Sets the quoteStyle option
 	 *
 	 * @param  integer $quoteStyle
-	 * @return W2P_Filter_HtmlEntities Provides a fluent interface
+	 * @return HtmlEntities Provides a fluent interface
 	 */
 	public function setQuoteStyle($quoteStyle)
 	{
@@ -130,37 +129,12 @@ class W2P_Filter_HtmlEntities extends W2P_Filter_Abstract
 	 * Set encoding
 	 *
 	 * @param  string $value
-	 * @return W2P_Filter_HtmlEntities
+	 * @return HtmlEntities
 	 */
 	public function setEncoding($value)
 	{
 		$this->_encoding = (string) $value;
 		return $this;
-	}
-	
-	/**
-	 * Returns the charSet option
-	 *
-	 * Proxies to {@link getEncoding()}
-	 *
-	 * @return string
-	 */
-	public function getCharSet()
-	{
-		return $this->getEncoding();
-	}
-	
-	/**
-	 * Sets the charSet option
-	 *
-	 * Proxies to {@link setEncoding()}
-	 *
-	 * @param  string $charSet
-	 * @return W2P_Filter_HtmlEntities Provides a fluent interface
-	 */
-	public function setCharSet($charSet)
-	{
-		return $this->setEncoding($charSet);
 	}
 	
 	/**
@@ -177,7 +151,7 @@ class W2P_Filter_HtmlEntities extends W2P_Filter_Abstract
 	 * Sets the doubleQuote option
 	 *
 	 * @param boolean $doubleQuote
-	 * @return W2P_Filter_HtmlEntities Provides a fluent interface
+	 * @return HtmlEntities Provides a fluent interface
 	 */
 	public function setDoubleQuote($doubleQuote)
 	{
