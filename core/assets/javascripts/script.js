@@ -153,43 +153,43 @@ jQuery(document).ready(function() {
 	window.original_send_to_editor = window.send_to_editor;
 	window.send_to_editor = function(html) {
         
-		if (formfield) {
-            console.log(html);
-			//clear interval for "Use this Button" so button text resets
-			clearInterval(tbframe_interval);
-        	
-			// itemurl = $(html).attr('href'); // Use the URL to the main image.
+    if (formfield) {
+      //clear interval for "Use this Button" so button text resets
+      clearInterval(tbframe_interval);
 
-			if ( jQuery(html).html(html).find('img').length > 0 ) {
-				itemurl = jQuery(html).html(html).find('img').attr('src'); // Use the URL to the size selected.
-			} else {
-				// It's not an image. Get the URL to the file instead.
-				var htmlBits = html.split("'"); // jQuery seems to strip out XHTML when assigning the string to an object. Use alternate method.
-				itemurl = htmlBits[1]; // Use the URL to the file.
+      // itemurl = $(html).attr('href'); // Use the URL to the main image.
 
-				
-			} // End IF Statement
-			var image = /(^.*\.jpg|jpeg|png|gif|ico*)/gi;
+      if ( jQuery(html).html(html).find('img').length > 0 ) {
+        itemurl = jQuery(html).html(html).find('img').attr('src'); // Use the URL to the size selected.
+      } else {
+        // It's not an image. Get the URL to the file instead.
+        var htmlBits = html.split("'"); // jQuery seems to strip out XHTML when assigning the string to an object. Use alternate method.
+        itemurl = htmlBits[1]; // Use the URL to the file.
+      } // End IF Statement
 
-            var bg = jQuery('div.' + formfield).data('urlOuthers');
-            var ar = itemurl.split('.');
-            var ext = ar[ar.length-1];
 
-            if(image.test(itemurl))  bg  = itemurl;
-            if( existsExtIcon(ext) ){ bg  = jQuery('div.' + formfield).data('iconPath')+ext+".png"; }
+      var image = /(^.*\.jpg|jpeg|png|gif|ico*)/gi;
 
-			jQuery('#' + formfield).val(itemurl);
-            jQuery('div.' + formfield + ' .file').css({
-                backgroundImage: 'url('+bg+')'
-            });
-			tb_remove();
-		} else {
-			window.original_send_to_editor(html);
-		}
-		
-		// Clear the formfield value so the other media library popups can work as they are meant to. - 2010-11-11.
-		formfield = '';
-	};
+      var bg = jQuery('div.' + formfield).data('urlOuthers');
+      var ar = itemurl.split('.');
+      var ext = ar[ar.length-1];
+
+      if(image.test(itemurl))  bg  = itemurl;
+      if( existsExtIcon(ext) ){ bg  = jQuery('div.' + formfield).data('iconPath')+ext+".png"; }
+
+      jQuery('#' + formfield).val(itemurl);
+      jQuery('div.' + formfield + ' .file').css({
+        backgroundImage: 'url('+bg+')'
+      });
+      jQuery('div.w2p-' + formfield + '').html(generateInfoFor(itemurl));
+      tb_remove();
+    } else {
+      window.original_send_to_editor(html);
+    }
+
+    // Clear the formfield value so the other media library popups can work as they are meant to. - 2010-11-11.
+    formfield = '';
+  };
 });
 
 function existsExtIcon($ext) {
@@ -200,4 +200,30 @@ function existsExtIcon($ext) {
                    'py', 'qt', 'ra', 'ram', 'rar', 'rm', 'rpm', 'rtf', 'rv', 'skp', 'sql', 'sty', 'tar', 'tex', 'tgz',
                    'tiff', 'ttf', 'txt', 'vob', 'wav', 'wmv', 'xls', 'xlsx', 'xml', 'xpi', 'zip'];
     return jQuery.inArray( $ext, $extensions ) != -1
+}
+
+function generateInfoFor(url) {
+  var filename, ext, ar, html;
+
+  if (url == '') return '';
+
+  ar = url.split('/');
+  filename = ar[ar.length-1];
+
+  ar = url.split('.');
+  ext = ar[ar.length-1];
+
+  html = "<blockquote>" +
+           "<p>Filename:</p>" +
+           "<small>"+filename+"</small>";
+
+  if ( jQuery.getMimeType(ext) )
+  {
+    html += "<p>Mimetype:</p>" +
+            "<small>"+jQuery.getMimeType(ext)[1]+"</small>";
+  }
+  html += "</blockquote>";
+
+  return html;
+
 }

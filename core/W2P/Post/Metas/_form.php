@@ -13,7 +13,7 @@ foreach ( $this->_itens as $item )
     /** @var $item \W2P\Form\Element */
     $item->setValue( \W2P\Post\Metas::get_meta_by_post( $post->ID, $this->meta_name_for($item) ) );
 ?>
-        <div class="item">
+        <div class="item clearfix">
             <?php echo $item ?>
         </div>
 <?php

@@ -45,9 +45,10 @@ class FileWp extends AbstractClass
 	protected $_template = '
 	<span class="filewp-{id} w2p-upload label" data-target="filewp-{id}" data-postid="{postid}">{label}</span>
 	<div class="show filewp-{id} w2p-upload" data-target="filewp-{id}" data-postid="{postid}" {data-conf}>
-	    <div class="file">{click_to_change}</div>
+	    <div class="file"></div>
+	    <p>{click_to_change}</p>
 	</div>
-	<div class="data-infos w2p-upload">
+	<div class="w2p-data-infos w2p-filewp-{id}">
 	</div>
 	<input type="hidden" class="span4 search-query" name="{name}" id="filewp-{id}"{value}{placeholder}{required}{autofocus}{attributes} />
 	';
@@ -69,59 +70,59 @@ class FileWp extends AbstractClass
                 ' data-url-outhers="'.W2P_ASSETSPATH.'images/outhers.png"';
     }
 
-	/**
-	 * Retorna a referencia de identificacao 
-	 * para upload do arquivo para o post
-	 * determinado
-	 * @return int
-	 */
-	public function getPostid()
-	{
-		return $this->_postid;
-	}
-	/**
-	 * Configura o ID do post para armazenamento de
-	 * referencia ao post correto
-	 * @param int $postid
-	 * @return W2P_Form_Element_RadioWp
-	 */
-	public function setPostid( $postid )
-	{
-		$this->_postid = $postid;
-		return $this; 
-	}
-	/**
-	 * Defined by W2P_Form_Element_Interface
-	 * @return array
-	 */
-	public function toArray()
-	{
-		$element['type']		= $this->getType();
-		$element['name']		= $this->getName();
-		$element['id']			= $this->getId();
-		$element['postid']		= $this->getPostid();
-		$element['value']		= $this->getValue()			? ' value="'.$this->getValue().'"'				: '';
-		$element['placeholder']	= $this->getPlaceholder()	? ' placeholder="'.$this->getPlaceholder().'"'	: '';
-		$element['required']	= $this->_required			? ' required="required"'						: '';
-		$element['autofocus']	= $this->getAutofocus()		? ' autofocus="autofocus"'						: '';
-		$element['label']		= $this->getLabel()			? $this->getLabel()								: '';
-		$element['attributes']	= '';
-		if ( $this->getAttributes() )
-		{
-			foreach ( $this->getAttributes() as $key=>$attr )
-				$element['attributes'] .= ' '.$key.'="'.$attr.'"';
-		}
-		return $element;
-	}
-	/**
-	 * Defined by W2P_Form_Element_Interface
-	 * @return string
-	 */
-	public function __toString()
-	{
-		$data = $this->toArray();
-		$tpl = str_replace( '{data-conf}', $this->getDataConf(), $this->getTemplate() );
+  /**
+   * Retorna a referencia de identificacao
+   * para upload do arquivo para o post
+   * determinado
+   * @return int
+   */
+  public function getPostid()
+  {
+    return $this->_postid;
+  }
+  /**
+   * Configura o ID do post para armazenamento de
+   * referencia ao post correto
+   * @param int $postid
+   * @return W2P_Form_Element_RadioWp
+   */
+  public function setPostid( $postid )
+  {
+    $this->_postid = $postid;
+    return $this;
+  }
+  /**
+   * Defined by W2P_Form_Element_Interface
+   * @return array
+   */
+  public function toArray()
+  {
+    $element['type']		= $this->getType();
+    $element['name']		= $this->getName();
+    $element['id']			= $this->getId();
+    $element['postid']		= $this->getPostid();
+    $element['value']		= $this->getValue()			? ' value="'.$this->getValue().'"'				: '';
+    $element['placeholder']	= $this->getPlaceholder()	? ' placeholder="'.$this->getPlaceholder().'"'	: '';
+    $element['required']	= $this->_required			? ' required="required"'						: '';
+    $element['autofocus']	= $this->getAutofocus()		? ' autofocus="autofocus"'						: '';
+    $element['label']		= $this->getLabel()			? $this->getLabel()								: '';
+    $element['attributes']	= '';
+    if ( $this->getAttributes() )
+    {
+      foreach ( $this->getAttributes() as $key=>$attr )
+        $element['attributes'] .= ' '.$key.'="'.$attr.'"';
+    }
+    return $element;
+}
+  /**
+   * Defined by W2P_Form_Element_Interface
+   * @return string
+   */
+  public function __toString()
+  {
+    $data = $this->toArray();
+    $tpl = str_replace( '{data-conf}', $this->getDataConf(), $this->getTemplate() );
         $tpl = str_replace( '{click_to_change}', __('Click to change', 'w2p'), $tpl );
-		return @preg_replace('/\{([^}]*)\}/e', '$data[\\1]', $tpl);
-	}
+    return @preg_replace('/\{([^}]*)\}/e', '$data[\\1]', $tpl);
+  }
 }
