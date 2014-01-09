@@ -1,0 +1,3 @@
+( ->
+  alert 'coffeescript funcionando denovo'
+)()

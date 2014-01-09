@@ -214,39 +214,62 @@ div {
     width: auto !important; }
   .w2p-metas .item {
     padding: 12px 0; }
-    .w2p-metas .item label,
-    .w2p-metas .item .label {
-      display: block; }
-    .w2p-metas .item .label {
-      padding-bottom: 10px;
-      background-color: transparent;
-      color: inherit;
-      text-shadow: none;
-      font-weight: normal;
-      font-size: 14px; }
+
+  .w2p-metas .item label,
+  .w2p-metas .item .label,
+  .w2p-admin label,
+  .w2p-admin .label {
+    display: block; }
+  .w2p-metas .item .label,
+  .w2p-admin .label {
+    padding-bottom: 10px;
+    background-color: transparent;
+    color: inherit;
+    text-shadow: none;
+    font-weight: normal;
+    font-size: 14px; }
 
 /*
  * * File Wp *
  */
 div.w2p-upload {
-  width: 80px;
-  height: 80px;
+  width: 130px;
+  height: 130px;
   display: block;
-  padding: 10px;
-  border: 2px dashed #dedede;
+  border: 1px SOLID #dedede;
   cursor: pointer;
+  position: relative;
+  float: left;
   -webkit-transition: all 0.3s linear;
   -moz-transition: all 0.3s linear;
   -o-transition: all 0.3s linear;
   transition: all 0.3s linear; }
   div.w2p-upload div.file {
-    width: 100%;
-    height: 100%;
     background-size: cover;
     color: transparent;
-    line-height: 80px;
+    line-height: 100px;
     text-align: center;
-    position: relative;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    bottom: 5px;
+    left: 5px;
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s linear;
+    -o-transition: all 0.3s linear;
+    transition: all 0.3s linear; }
+  div.w2p-upload p {
+    opacity: 0;
+    position: absolute;
+    line-height: 2.5em;
+    font-size: 10px;
+    text-align: center;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    margin: 0;
     -webkit-transition: all 0.3s linear;
     -moz-transition: all 0.3s linear;
     -o-transition: all 0.3s linear;
@@ -269,4 +292,12 @@ div.w2p-upload {
       color: #333333; }
     div.w2p-upload:hover:before {
       background-color: rgba(255, 255, 255, 0.25); }
+    div.w2p-upload:hover p {
+      opacity: 1; }
+
+.w2p-data-infos {
+  float: left;
+  margin-left: 10px; }
+  .w2p-data-infos p {
+    font-size: 14px !important; }
 

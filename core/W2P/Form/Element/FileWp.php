@@ -50,7 +50,7 @@ class FileWp extends AbstractClass
 	</div>
 	<div class="w2p-data-infos w2p-filewp-{id}">
 	</div>
-	<input type="hidden" class="span4 search-query" name="{name}" id="filewp-{id}"{value}{placeholder}{required}{autofocus}{attributes} />
+	<input type="hidden" class="span4 search-query" data-filewp="filewp-{id}" name="{name}" id="filewp-{id}"{value}{placeholder}{required}{autofocus}{attributes} />
 	';
 	/**
 	 * Tipo do elemento html

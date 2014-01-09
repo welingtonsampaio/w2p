@@ -86,7 +86,7 @@ class Select extends AbstractMultioptions
 		$data['options'] = '';
 		
 		$tplo = $this->getTemplateOptions();
-		foreach ( $data['multioptions'] as $label=>$value )
+		foreach ( $data['multioptions'] as $value=>$label )
 		{
 			$data['olabel']		= $label;
 			$data['ovalue']		= $value;

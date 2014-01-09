@@ -1,6 +1,10 @@
 <?php
 function maintenance()
 {
+
+    if ( \W2P\W2P::getInstance()->configuration()->modeMaintenance == 0 )
+        return true;
+
 	if ( isset( $_GET[ 'preview' ] ) )
 		return true;
 	
@@ -10,9 +14,6 @@ function maintenance()
 	if ( is_user_logged_in() )
 		return true;
 	
-	if ( W2P::getInstance()->configuration()->modeMaintenance == false )
-		return true;
-	
-	include_once( W2P::getInstance()->modules()->get_module_include_path('maintenance') . '/index.php');
+	include_once( \W2P\W2P::getInstance()->modules()->get_include_path('maintenance') . '/index.php');
 	exit();
 }

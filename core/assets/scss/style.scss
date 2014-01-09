@@ -1,6 +1,4 @@
-@import compass;
-
-
+@import "mixins";
 
 $imgpath = "../../core/assets/images/";
 
@@ -216,18 +214,20 @@ div {
 
   .item {
     padding: 12px 0;
-
-    label, .label { display: block; }
-    .label {
-      padding-bottom: 10px;
-      background-color: transparent;
-      color: inherit;
-      text-shadow: none;
-      font-weight: normal;
-      font-size: 14px;
-    }
+  }
+}
 
 
+.w2p-metas .item,
+.w2p-admin {
+  label, .label { display: block; }
+  .label {
+    padding-bottom: 10px;
+    background-color: transparent;
+    color: inherit;
+    text-shadow: none;
+    font-weight: normal;
+    font-size: 14px;
   }
 }
 

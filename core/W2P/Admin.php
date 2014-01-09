@@ -106,6 +106,14 @@ class Admin
 				$defaultModule->addItem($modeMaintenance);
 			}
 		}
+
+        $env = new Form\Element\Select('env');
+        $env->setMultioptions([
+            'development'=> __("Development", 'W2P'),
+            'production'=> __("Production", 'W2P')
+        ]);
+        $env->setValue('production');
+        $defaultModule->addItem($env);
 		
 		if ( $this->_noUsedKeyAnlytics !== true )
 		{
@@ -152,15 +160,20 @@ class Admin
 		// Styles
 		wp_enqueue_style('thickbox');
 		echo '<link rel="stylesheet" type="text/css" href="' .W2P_URL . W2P::getInstance()->configuration()->assets_path . '/css/bootstrap.w2p.min.css'. '" />';
-		$style = W2P::getInstance()->stylesheet()->renderSass('w2p.scss', W2P_COREPATH.'/assets/scss/', true);
-		wp_register_style('w2p', $style);
+		$style = W2P::getInstance()->stylesheet()->renderSass( W2P_COREPATH.'/assets/scss/w2p.scss', true);
+        $md5 = md5($style);
+        if (!file_exists(W2P_COREPATH.'/assets/scss/cache/'.$md5.'.css'))
+            file_put_contents(W2P_COREPATH.'/assets/scss/cache/'.$md5.'.css', $style);
+		wp_register_style('w2p', W2P_URL . W2P::getInstance()->configuration()->core_path . '/assets/scss/cache/'.$md5.'.css');
 		wp_enqueue_style('w2p');
 		
 		// Scripts
 		wp_enqueue_script('media-upload');
 		wp_enqueue_script('thickbox');
-		wp_register_script('w2p', W2P_ASSETSPATH . 'javascripts/script.js', array('jquery','media-upload','thickbox'));
-		wp_enqueue_script('w2p');
+        wp_register_script('mimetypes', W2P_ASSETSPATH . 'javascripts/mimetype.js');
+        wp_register_script('w2p', W2P_ASSETSPATH . 'javascripts/script.js', array('jquery','media-upload','thickbox'));
+        wp_enqueue_script('w2p');
+        wp_enqueue_script('mimetypes');
 		wp_register_script('bootstrap', W2P_URL . W2P::getInstance()->configuration()->assets_path . '/javascripts/bootstrap.min.js', array('jquery'));
 		wp_enqueue_script('bootstrap');
 	}

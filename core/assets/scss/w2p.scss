@@ -1,6 +1,318 @@
-/*
- * ajdbashbdjahsbdjajasb dajs djahsd ahjs dhjas djhas d
- * saljdljsa djasl djlsa dajslhd ajhsldsa djhlasd hjlassa
- *
- *= require style
- */
+@import "mixins";
+
+$imgpath: "../../images/";
+
+.clear {
+  clear: both; }
+
+/*========================
+===  ADMIN
+==========================*/
+
+.w2p-admin {
+  position: relative;
+  width: 100%;
+  .sidebar {
+    width: 215px;
+    position: relative;
+    float:left;
+    .logo {
+      display: block;
+      width: 215px;
+      height: 145px;
+      background: transparent url($imgpath + "bg_admin.png") no-repeat center center; }
+    .menu {
+      width: 100%;
+      button {
+        width: 100%; } } }
+  .content {
+    .form {
+      position: relative;
+      top: 125px;
+      left: 20px;
+      float: left;
+      min-width: 600px;
+      padding: 10px 30px 30px;
+      @include border-radius(8px);
+      background-color: white;
+      @include box-shadow(rgba(black, 0.1), 0, 0, 20px);//rgba(30,30,30, 0.2)
+      h3{
+        margin-bottom: 20px;
+        i {
+          vertical-align: baseline;
+          margin-right: 7px; } }
+      input {
+        height: 30px; } } } }
+#alerts{
+  position: absolute;
+  top: 23px;
+  left: 234px;
+  width: 662px;}
+div {
+  &.buttomRadio {
+    display: block;
+    width: 64px;
+    height: 21px;
+    background: url($imgpath + "bg_radioButtom.png") top left;
+    cursor: pointer; }
+  /*#container {
+    position: relative;
+    background: #dcdcdc url($imgpath + 'bg_admin.png') no-repeat -40px -40px;
+    width: 100%;
+    margin-top: 30px;
+    height: 100%;
+    padding-bottom: 1px;
+    .menu {
+      position: absolute;
+      border: 0px solid #ccc;
+      top: 130px;
+      left: 20px;
+      width: 180px;
+      padding: 0;
+      ul li {
+        margin-top: 6px;
+        &.ativo {
+          background: #e6e9ed;
+          cursor: default;
+          &:hover {
+            border-color: #bbb;
+            color: #464646; } } } }
+    .content {
+      position: relative;
+      margin: 0 40px 30px 220px;
+      padding-top: 20px;
+      div.form {
+        display: none; } }
+    input {
+      width: 100%;
+      &[type="button"] {
+        width: auto !important; } }
+    textarea {
+      display: block;
+      min-width: 100%;
+      min-height: 110px;
+      max-width: 100%;
+      max-height: 110px; }
+    #tabs div {
+      border: 0px solid #ccc; }
+    div {
+      &.buttomRadio {
+        display: block;
+        width: 64px;
+        height: 21px;
+        background: url($imgpath + "bg_radioButtom.png") top left;
+        cursor: pointer; }
+      &.ativo {
+        display: block; }
+      &.gravar {
+        text-align: right; } } }
+  */
+}
+#w2p-loading {
+  display: none;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999999;
+  background-color: rgba(255, 255, 255, 0.7);
+  > div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -126px 0 0 -116px;
+    padding: 50px;
+    text-align: center;
+    border: 2px solid #15d50b;
+    border-radius: 22px;
+    background-color: white;
+    color: #15d50b; } }
+
+/*=============================================* /
+
+#alerts {
+  top: 250px;
+  left: 150px;
+  right: 20px;
+  bottom: 0;
+  > div {
+    display: none;
+    opacity: 0;
+    margin: 12px 0;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+    box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.1), 1px 1px 0 rgba(255, 255, 255, 0.2);
+    -moz-box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.1), 1px 1px 0 rgba(255, 255, 255, 0.2);
+    -webkit-box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.1), 1px 1px 0 rgba(255, 255, 255, 0.2);
+    position: relative;
+    width: 100%;
+    > {
+      div.close {
+        display: block;
+        position: absolute;
+        top: 19px;
+        right: 12px;
+        width: 26px;
+        height: 26px;
+        cursor: pointer;
+        background: transparent url($imgpath + "alert_icon_close.png") no-repeat; }
+      p {
+        position: relative;
+        font-family: 'PTSansNarrowBold';
+        font-size: 18px;
+        min-height: 26px;
+        vertical-align: middle;
+        padding-left: 38px;
+        padding-right: 62px;
+        padding-bottom: 36px;
+        top: 19px;
+        left: 12px; } } }
+  #error {
+    background-color: #FFB5B5;
+    p {
+      color: #E83D0E;
+      background: transparent url($imgpath + "alert_icon_error.png") no-repeat; } }
+  #warning {
+    background-color: #F4EF9A;
+    p {
+      color: #e8a911;
+      background: transparent url($imgpath + "alert_icon_warning.png") no-repeat; } }
+  #confirm {
+    background-color: #BCFFB5;
+    p {
+      color: #54a306;
+      background: transparent url($imgpath + "alert_icon_confirm.png") no-repeat; } }
+  #info {
+    background-color: #B5D1FF;
+    p {
+      color: #2766a1;
+      background: transparent url($imgpath + "alert_icon_info.png") no-repeat; } } } }
+
+/*========================
+===  METAS
+==========================*/
+
+.w2p-metas {
+
+  background: url($imgpath + 'bg_admin_mini.png') no-repeat right top;
+
+  input {
+    width: 50%;
+  }
+
+  textarea {
+    width: 60%;
+    min-height: 80px;
+  }
+
+  input[type="button"] {
+    width: auto !important;
+  }
+
+  .item {
+    padding: 12px 0;
+  }
+}
+
+
+.w2p-metas .item,
+.w2p-admin {
+  label, .label { display: block; }
+  .label {
+    padding-bottom: 10px;
+    background-color: transparent;
+    color: inherit;
+    text-shadow: none;
+    font-weight: normal;
+    font-size: 14px;
+  }
+}
+
+
+
+
+/** File Wp **/
+div.w2p-upload{
+  width: 130px;
+  height: 130px;
+  display: block;
+  border: 1px SOLID #dedede;
+  cursor: pointer;
+  position: relative;
+  float: left;
+
+  -webkit-transition: all 0.3s linear;
+  -moz-transition: all 0.3s linear;
+  -o-transition: all 0.3s linear;
+  transition: all 0.3s linear;
+
+  div.file {
+    background-size: cover;
+    color: transparent;
+    line-height: 100px;
+    text-align: center;
+    position: absolute;
+    top   : 5px;
+    right : 5px;
+    bottom: 5px;
+    left  : 5px;
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s linear;
+    -o-transition: all 0.3s linear;
+    transition: all 0.3s linear;
+
+  }
+
+  p {
+    opacity: 0;
+    position: absolute;
+    line-height: 2.5em;
+    font-size: 10px;
+    text-align: center;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0,0,0,0.8);
+    color: white;
+    margin: 0;
+
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s linear;
+    -o-transition: all 0.3s linear;
+    transition: all 0.3s linear;
+  }
+
+  &:before {
+    content: " ";
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(white, 0.0);
+    position: absolute;
+    z-index: -1;
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s linear;
+    -o-transition: all 0.3s linear;
+    transition: all 0.3s linear;
+  }
+  &:hover {
+    border-color: darken(#dedede, 20%);
+
+    .file:hover{ color: #333; }
+    &:before { background-color: rgba(white, 0.25); }
+    p {
+      opacity: 1;
+    }
+  }
+
+}
+.w2p-data-infos {
+  float: left;
+  margin-left: 10px;
+  p {
+    font-size: 14px !important;
+  }
+}

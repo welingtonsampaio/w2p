@@ -1,9 +1,13 @@
-/*
- * ajdbashbdjahsbdjajasb dajs djahsd ahjs dhjas djhas d
- * saljdljsa djasl djlsa dajslhd ajhsldsa djhlasd hjlassa
- *
- *= require app/app
- *= require app/rack1,if IE lt 9
- *= require app/rack2,if IE lt 8
- *= require app/rack3,if IE lt 7
- */
+//
+// Este é um arquivo de manifesto que vai ser compilado em w2p.css, que incluirá todos os
+// arquivos listados abaixo.
+//
+// Qualquer arquivo CSS e SCSS dentro deste diretório, %theme%/assets/scss, se houver,
+// pode ser referenciado aqui.
+//
+// Você é livre para adicionar estilos de todo o aplicativo para este arquivo e eles vão
+// aparecer no topo do arquivo compilado, mas é geralmente melhor criar um novo arquivo
+// para o escopo do estilo.
+//
+//= require app/app
+//= require app/bla1

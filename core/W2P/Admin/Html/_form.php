@@ -51,7 +51,7 @@ html{
                         }catch ( \W2p\Exception $e ){
                             echo ($e->getMessage());
                         }
-						echo '<p>'.$item.'</p>';
+						echo '<div class="clearfix">'.$item.'</div>';
 				?>
 					<hr />
 				<?php 

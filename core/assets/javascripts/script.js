@@ -85,7 +85,8 @@ jQuery(document).ready(function(){
 					console.log(m);
 				}
 				if ( data.status == 'info' )
-					show_info( '' + data.message );
+                    new W2P_Message( '' + data.message , 'alert-info');
+
 				if ( data.status != 'info' && data.status != 'ok' )
 					show_warning( '' + data.message );
 			},
@@ -168,20 +169,7 @@ jQuery(document).ready(function() {
       } // End IF Statement
 
 
-      var image = /(^.*\.jpg|jpeg|png|gif|ico*)/gi;
-
-      var bg = jQuery('div.' + formfield).data('urlOuthers');
-      var ar = itemurl.split('.');
-      var ext = ar[ar.length-1];
-
-      if(image.test(itemurl))  bg  = itemurl;
-      if( existsExtIcon(ext) ){ bg  = jQuery('div.' + formfield).data('iconPath')+ext+".png"; }
-
-      jQuery('#' + formfield).val(itemurl);
-      jQuery('div.' + formfield + ' .file').css({
-        backgroundImage: 'url('+bg+')'
-      });
-      jQuery('div.w2p-' + formfield + '').html(generateInfoFor(itemurl));
+      fillFileWp(formfield, itemurl);
       tb_remove();
     } else {
       window.original_send_to_editor(html);
@@ -227,3 +215,30 @@ function generateInfoFor(url) {
   return html;
 
 }
+
+function fillFileWp(formfield, url) {
+    var image = /(^.*\.jpg|jpeg|png|gif|ico*)/gi;
+
+    var bg = jQuery('div.' + formfield).data('urlOuthers');
+    var ar = url.split('.');
+    var ext = ar[ar.length-1];
+
+    if( image.test(url)    )  bg = url;
+    if( existsExtIcon(ext) ){ bg = jQuery('div.' + formfield).data('iconPath')+ext+".png"; }
+
+    jQuery('#' + formfield).val(url);
+    jQuery('div.' + formfield + ' .file').css({
+        backgroundImage: 'url('+bg+')'
+    });
+    jQuery('div.w2p-' + formfield + '').html(generateInfoFor(url));
+}
+
+jQuery(function(){
+    jQuery('[data-filewp]').each(function(){
+        var el;
+        el = jQuery(this);
+        if (el.val() != '') {
+            fillFileWp(el.data('filewp'), el.val());
+        }
+    });
+});

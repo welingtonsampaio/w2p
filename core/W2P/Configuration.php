@@ -104,8 +104,9 @@ class Configuration
 				'debug_format'			=> 'html',
 				'jquery_version'		=> '1.7.2',
 				'jquery_online_version'	=> false,
-				'sass_extension'		=> 'scss',
-				'sass_file_default'		=> 'w2p',
+                'sass_file_default'		=> 'w2p',
+                'less_file_default'		=> 'w2p',
+                'coffee_file_default'   => 'w2p',
 				'compress_css_js'		=> false,
 				'developer_link'		=> 'http://zaez.net',
 				'developer_logo'		=> 'http://utilidades.zaez.net/logo.png'

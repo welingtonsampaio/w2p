@@ -137,8 +137,11 @@ class Metas
         // Styles
         wp_enqueue_style('thickbox');
         echo '<link rel="stylesheet" type="text/css" href="' .W2P_URL . W2P::getInstance()->configuration()->assets_path . '/css/bootstrap.w2p.min.css'. '" />';
-        $style = W2P::getInstance()->stylesheet()->renderSass('w2p.scss', W2P_COREPATH.'/assets/scss/', true);
-        wp_register_style('w2p', $style);
+        $style = W2P::getInstance()->stylesheet()->renderSass( W2P_COREPATH.'/assets/scss/w2p.scss', true);
+        $md5 = md5($style);
+        if (!file_exists(W2P_COREPATH.'/assets/scss/cache/'.$md5.'.css'))
+            file_put_contents(W2P_COREPATH.'/assets/scss/cache/'.$md5.'.css', $style);
+        wp_register_style('w2p', W2P_URL . W2P::getInstance()->configuration()->core_path . '/assets/scss/cache/'.$md5.'.css');
         wp_enqueue_style('w2p');
 
         // Scripts

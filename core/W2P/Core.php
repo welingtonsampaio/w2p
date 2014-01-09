@@ -85,17 +85,37 @@ class Core
 	}
 
     /**
-     *
+     * @throws Exception
      */
     public function renderByRoutes() {
         global $post;
+        if ( empty($this->layout) ) $this->setLayout('default');
         if ( is_page() ) {
-            print_r( $post );
+            if ( !empty($post->page_template) && $post->page_template== 'default' ) {
+                $this->setView( W2P::getInstance()->route()->getRoute('page') );
+                return $this->render();
+            }
+            else if ( W2P::getInstance()->route()->hasRoute('page') ) {
+                $this->setView( W2P::getInstance()->route()->getRoute('page') );
+                return $this->render();
+            }else if ( !empty($post->page_template) ) {
+            $this->setView( str_replace('.phtml', '',$post->page_template) );
+            return $this->render();
+            }
+        }else if ( is_home() ) {
+            $this->setView( 'home' );
+            return $this->render();
         }elseif ( is_single() ) {
-            echo "asd";
+            $this->setView( 'single' );
+            return $this->render();
+        }elseif ( is_category() ) {
+            $this->setView( 'category' );
+            return $this->render();
         }else{
-            echo 'padrao geral';
+            $this->setView( '404' );
+            return $this->render();
         }
+        throw new Exception( __( 'Route not found.', 'w2p' ) );
     }
 	/**
 	 * Configura o layout da pagina

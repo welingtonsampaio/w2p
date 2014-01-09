@@ -53,13 +53,32 @@ class Route
      * @return Route
      */
     public function add_route($name, $view_file=null, $is_template=false) {
-
-        $this->_routes[] = array( 'name' => $name, 'view' => $view_file);
+        $down_name = strtolower($name);
+        if ( empty($view_file) ){ $view_file = sanitize_title($name); }
+        $this->_routes[$down_name] = array( 'name' => $name, 'view' => $view_file);
+        if ((boolean) $is_template){ $this->_templates[] = array( 'name' => $name, 'view' => $view_file.".phtml"); }
         return $this;
     }
 
+    public function getRoute($name) {
+        return $this->_routes[$name]['view'];
+    }
+
     /**
+     * Verifica se existe a rota informada na coleção
+     * de rotas do sistema W2P
      *
+     * @param $name
+     *  Nome da chave da rota a ser pesquisada
+     * @return bool
+     */
+    public function hasRoute($name) {
+        return array_key_exists($name, $this->_routes);
+    }
+
+    /**
+     * Salva no cache do wordpress as
+     * configurações de templates
      */
     public function save_cache() {
         $cache_hash = md5(get_template_directory());
@@ -71,7 +90,7 @@ class Route
      */
     protected function generate_templates() {
         $templates = array();
-        foreach( $this->_routes as $route ) $templates[$route['view']] = $route['name'];
+        foreach( $this->_templates as $route ) $templates[$route['view']] = $route['name'];
         return $templates;
     }
 
